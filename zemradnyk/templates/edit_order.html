@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container ">
+        <div class="col-6">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if user.is_authenticated and user.orderer.role == 'director' %}
+                    <p>Номер договора: {{ form.order_number }}</p>
+                    <p>Дата договора: {{ form.order_date }}</p>
+                    <p>П.І.Б: {{ form.pib }}</p>
+                    <p>Контакти: {{ form.contact }}</p>
+                    <p>Адреса ділянки: {{ form.location }}</p>
+                    <p>Кадастровий номер(якщо є): {{ form.kadastr_number }}</p>
+                    <p>ІПН: {{ form.ipn }}</p>
+                    <p>Серия номер паспорта: {{ form.pasport }}</p>
+                    <p>Район: {{ form.rayon }}</p>
+                    <p>Рада: {{ form.sovet }}</p>
+                    <p>Тип робіт: {{ form.type_of_works }}</p>
+                    <p>Замовник: {{ form.orderer }}</p>
+                    <p>Наявність геодезії: {{ form.exist_mark }}</p>
+                    <p>Дата геодезії: {{ form.date }}</p>
+                    <p>Розробник: {{ form.developer }}</p>
+                    <p>Загальна сума робіт: {{ form.total }}</p>
+                    <p>Фактично сплачено: {{ form.payed }}</p>
+                    <p>Дата відправлення запиту: {{ form.sending_date }}</p>
+                    <p>Очікувана дата отримання: {{ form.pre_response_date }}</p>
+                    <p>Дата отримання: {{ form.response_date }}</p>
+                    <p>Відповідальний: {{ form.vidpovidalny }}</p>
+                    <p>Дата отримання(Розробка): {{ form.first_date }}</p>
+                    <p>Акт виготовлення меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
+                    <p>Акти меж повернуто підписані: {{ form.akt_pidpisano_date }}</p>
+                    <p>Граничний термін виконання: {{ form.granichniy_complete_date }}</p>
+                    <p>Фактично виконано: {{ form.complite_date }}</p>
+                    <p>Погодження документації: {{ form.pogodjenya }}</p>
+                    <p>Експертиза: {{ form.expertise }}</p>
+                    <p>Дата подання(Реєстрація ЗД): {{ form.podonya_date }}</p>
+                    <p>Номер ЗВ(Реєстрація ЗД): {{ form.number_ZV }}</p>
+                    <p>Зареєстровано(Реєстрація ЗД): {{ form.register_ZD }}</p>
+                    <p>На першу сессію відправленн: {{ form.first_session_date }}</p>
+                    <p>На першу сессію отримано: {{ form.first_session_response_date }}</p>
+                    <p>Відповідь ради: {{ form.response_rada }}</p>
+                    <p>Оскардження 1 сессія: {{ form.oskargenya_1 }}</p>
+                    <p>Повідомлення про розробку за мовчазной згодою: {{ form.dev_message_mov_zgoda }}</p>
+                    <p>Оскардження реєстрації ЗД: {{ form.oskargenya_2 }}</p>
+                    <p>Дата відправки затвердження: {{ form.sending_date_zatverg }}</p>
+                    <p>Дата отримання затвердження: {{ form.sending_response_date_zatverg }}</p>
+                    <p>Оскардження затвердження: {{ form.oskargenya_zatverg }}</p>
+                    <p>Реєстрація права властності: {{ form.register }}</p>
+                    <p>Примітки: {{ form.note }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'geodeziya' %}
+                    <p>Наявність геодезії: {{ form.exist_mark }}</p>
+                    <p>Дата геодезії: {{ form.date }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'manager' %}
+                    <div style="display: none">{{ form.as_p }}</div>
+                    <p>Номер договора: {{ form.order_number }}
+                    <p>Дата договора: {{ form.order_date }}</p>
+                    <p>П.І.Б: {{ form.pib }}</p>
+                    <p>Контакти: {{ form.contact }}</p>
+                    <p>Адреса ділянки: {{ form.location }}</p>
+                    <p>Кадастровий номер(якщо є): {{ form.kadastr_number }}</p>
+                    <p>ІПН: {{ form.ipn }}</p>
+                    <p>Серия номер паспорта: {{ form.pasport }}</p>
+                    <p>Район: {{ form.rayon }}</p>
+                    <p>Рада: {{ form.sovet }}</p>
+                    <p>Тип робіт: {{ form.type_of_works }}</p>
+                    <p>Замовник: {{ form.orderer }}</p>
+                    <p>Розробник: {{ form.develop }}</p>
+                    <p>Фактично сплачено: {{ form.payed }}</p>
+                    <p>Примітки: {{ form.note }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'develop' %}
+                    <div style="display: none">{{ form.as_p }}</div>
+                    <p>Адреса ділянки: {{ form.location }}</p>
+                    <p>Район: {{ form.rayon }}</p>
+                    <p>Рада: {{ form.sovet }}</p>
+                    <p>Кадастровий номер(якщо є): {{ form.kadastr_number }}</p>
+                    <p>ІПН: {{ form.ipn }}</p>
+                    <p>Серия номер паспорта: {{ form.pasport }}</p>
+                    <p>Відповідальний: {{ form.vidpovidalny }}</p>
+                    <p>Дата отримання(Розробка): {{ form.first_date }}</p>
+                    <p>Акт виготовлення меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
+                    <p>Акти меж повернуто підписані: {{ form.akt_pidpisano_date }}</p>
+                    <p>Граничний термін виконання: {{ form.granichniy_complete_date }}</p>
+                    <p>Фактично виконано: {{ form.complite_date }}</p>
+                    <p>Погодження документації: {{ form.pogodjenya }}</p>
+                    <p>Експертиза: {{ form.expertise }}</p>
+                    <p>Дата подання(Реєстрація ЗД): {{ form.podonya_date }}</p>
+                    <p>Номер ЗВ(Реєстрація ЗД): {{ form.number_ZV }}</p>
+                    <p>Зареєстровано(Реєстрація ЗД): {{ form.register_ZD }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'law' %}
+                    <div style="display: none">{{ form.as_p }}</div>
+                    <p>Адреса ділянки: {{ form.location }}</p>
+                    <p>Район: {{ form.rayon }}</p>
+                    <p>Рада: {{ form.sovet }}</p>
+                    <p>Кадастровий номер(якщо є): {{ form.kadastr_number }}</p>
+                    <p>ІПН: {{ form.ipn }}</p>
+                    <p>Серия номер паспорта: {{ form.pasport }}</p>
+                    <p>Дата відправлення запиту: {{ form.sending_date }}</p>
+                    <p>Очікувана дата отримання: {{ form.pre_response_date }}</p>
+                    <p>Дата отримання: {{ form.response_date }}</p>
+                    <p>На першу сессію відправленн: {{ form.first_session_date }}</p>
+                    <p>На першу сессію отримано: {{ form.first_session_response_date }}</p>
+                    <p>Відповідь ради: {{ form.response_rada }}</p>
+                    <p>Оскардження 1 сессія: {{ form.oskargenya_1 }}</p>
+                    <p>Повідомлення про розробку за мовчазной згодою: {{ form.dev_message_mov_zgoda }}</p>
+                    <p>Оскардження реєстрації ЗД: {{ form.oskargenya_2 }}</p>
+                    <p>Дата відправки затвердження: {{ form.sending_date_zatverg }}</p>
+                    <p>Дата отримання затвердження: {{ form.sending_response_date_zatverg }}</p>
+                    <p>Оскардження затвердження: {{ form.oskargenya_zatverg }}</p>
+                    <p>Реєстрація права властності: {{ form.register }}</p>
+                    <p>Примітки: {{ form.note }}</p>
+                    <button type="submit">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'buchalter' %}
+                    <div style="display: none">{{ form.as_p }}</div>
+                    <p>Загальна сума робіт: {{ form.total }}</p>
+                    <p>Фактично сплачено: {{ form.payed }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% elif user.is_authenticated and user.orderer.role == 'zamovnik' %}
+                    <div style="display: none">{{ form.as_p }}</div>
+                    <p>Фактично сплачено: {{ form.payed }}</p>
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                {% else %}
+                    У Вас немає прав переглядати цю сторінку
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

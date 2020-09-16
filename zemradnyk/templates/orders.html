@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    {% if user.is_authenticated and user.orderer.role == 'director' %}
+    <table class="table" style="font-size: 7px">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Тип роботи</th>
+            <th scope="col">Замовник</th>
+            <th scope="col">Наявність геодезії</th>
+            <th scope="col">Дата геодезії</th>
+            <th scope="col">Розробник</th>
+            <th scope="col">Загальна сума</th>
+            <th scope="col">Сплаченно</th>
+            <th scope="col">Дата відправки</th>
+            <th scope="col">Очікувана дата отримання</th>
+            <th scope="col">Дата отримання запит</th>
+            <th scope="col">Відповідальний</th>
+            <th scope="col">Дата отримання розробки</th>
+            <th scope="col">Акти меж виготовленно</th>
+            <th scope="col">Акти меж повернуто підписані</th>
+            <th scope="col">Граничний термін виконання</th>
+            <th scope="col">Виконано фактично</th>
+            <th scope="col">Погодження документації</th>
+            <th scope="col">Експертиза</th>
+            <th scope="col">РЗД дата подання</th>
+            <th scope="col">РЗД Номер ЗВ</th>
+            <th scope="col">РЗД Зареєстровано</th>
+            <th scope="col">На 1 сесію відправленно</th>
+            <th scope="col">На 1 сесію отримано</th>
+            <th scope="col">На 1 сесію отримано +30 днів</th>
+            <th scope="col">Відповідь ради</th>
+            <th scope="col">Оскарження 1(1 сесія)</th>
+            <th scope="col">Повідомлення про розробку(МЗ)</th>
+            <th scope="col">Оскарження 2(Реєстрація ЗД)</th>
+            <th scope="col">Затвердження (дата відправки)</th>
+            <th scope="col">Затвердження (дата отримання)</th>
+            <th scope="col">Затвердження (дата отримання) + 14 днів</th>
+            <th scope="col">Оскардження Затвердження</th>
+            <th scope="col">Реєстрація права властності</th>
+            <th scope="col">Примітки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="col">{{ order.id }}</th>
+                <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a></th>
+                <th scope="col">{{ order.order_date }}</th>
+                <th scope="col">{{ order.pib }}</th>
+                <th scope="col">{{ order.contact }}</th>
+                <th scope="col">{{ order.location }}</th>
+                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col">{{ order.sovet }}</th>
+                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col">{{ order.ipn }}</th>
+                <th scope="col">{{ order.pasport }}</th>
+                <th scope="col">{{ order.type_of_works }}</th>
+                <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.exist_mark }}</th>
+                <th scope="col">{{ order.date }}</th>
+                <th scope="col">{{ order.developer }}</th>
+                <th scope="col">{{ order.total }}</th>
+                <th scope="col">{{ order.payed }}</th>
+                <th scope="col">{{ order.sending_date }}</th>
+                <th scope="col">{{ order.pre_response_date }}</th>
+                <th scope="col">{{ order.response_date }}</th>
+                <th scope="col">{{ order.vidpovidalny }}</th>
+                <th scope="col">{{ order.first_date }}</th>
+                <th scope="col">{{ order.akt_vigotovleno_date }}</th>
+                <th scope="col">{{ order.akt_pidpisano_date }}</th>
+                <th scope="col">{{ order.granichniy_complete_date }}</th>
+                <th scope="col">{{ order.complite_date }}</th>
+                <th scope="col">{{ order.pogodjenya }}</th>
+                <th scope="col">{{ order.expertise }}</th>
+                <th scope="col">{{ order.podonya_date }}</th>
+                <th scope="col">{{ order.number_ZV }}</th>
+                <th scope="col">{{ order.register_ZD }}</th>
+                <th scope="col">{{ order.first_session_date }}</th>
+                <th scope="col">{{ order.first_session_response_date }}</th>
+                <th scope="col">{{ order.first_session_response_date_plus_30_days }}</th>
+                <th scope="col">{{ order.response_rada }}</th>
+                <th scope="col">{{ order.oskargenya_1 }}</th>
+                <th scope="col">{{ order.dev_message_mov_zgoda }}</th>
+                <th scope="col">{{ order.oskargenya_2 }}</th>
+                <th scope="col">{{ order.sending_date_zatverg }}</th>
+                <th scope="col">{{ order.sending_response_date_zatverg }}</th>
+                <th scope="col">{{ order.sending_response_date_zatverg_plus_14_days }}</th>
+                <th scope="col">{{ order.oskargenya_zatverg }}</th>
+                <th scope="col">{{ order.register }}</th>
+                <th scope="col">{{ order.note }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elif user.is_authenticated and user.orderer.role == 'geodeziya' %}
+    <table class="table" style="font-size: 7px">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Тип роботи</th>
+            <th scope="col">Замовник</th>
+            <th scope="col">Наявність геодезії</th>
+            <th scope="col">Дата геодезії</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="col">{{ order.id }}</th>
+                <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a></th>
+                <th scope="col">{{ order.order_date }}</th>
+                <th scope="col">{{ order.pib }}</th>
+                <th scope="col">{{ order.contact }}</th>
+                <th scope="col">{{ order.location }}</th>
+                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col">{{ order.sovet }}</th>
+                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col">{{ order.ipn }}</th>
+                <th scope="col">{{ order.pasport }}</th>
+                <th scope="col">{{ order.type_of_works }}</th>
+                <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.exist_mark }}</th>
+                <th scope="col">{{ order.date }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elif user.is_authenticated and user.orderer.role == 'manager' %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Тип роботи</th>
+            <th scope="col">Замовник</th>
+            <th scope="col">Наявність геодезії</th>
+            <th scope="col">Дата геодезії</th>
+            <th scope="col">Розробник</th>
+            <th scope="col">Загальна сума</th>
+            <th scope="col">Сплаченно</th>
+            <th scope="col">Дата відправки</th>
+            <th scope="col">Очікувана дата отримання</th>
+            <th scope="col">Дата отримання запит</th>
+            <th scope="col">Відповідальний</th>
+            <th scope="col">Дата отримання розробки</th>
+            <th scope="col">Акти меж виготовленно</th>
+            <th scope="col">Акти меж повернуто підписані</th>
+            <th scope="col">Граничний термін виконання</th>
+            <th scope="col">Виконано фактично</th>
+            <th scope="col">Погодження документації</th>
+            <th scope="col">Експертиза</th>
+            <th scope="col">РЗД дата подання</th>
+            <th scope="col">РЗД Номер ЗВ</th>
+            <th scope="col">РЗД Зареєстровано</th>
+            <th scope="col">На 1 сесію відправленно</th>
+            <th scope="col">Відповідь ради</th>
+            <th scope="col">Оскарження 1(1 сесія)</th>
+            <th scope="col">Повідомлення про розробку(МЗ)</th>
+            <th scope="col">Оскарження 2(Реєстрація ЗД)</th>
+            <th scope="col">Затвердження (дата відправки)</th>
+            <th scope="col">Оскардження Затвердження</th>
+            <th scope="col">Реєстрація права властності</th>
+            <th scope="col">Примітки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="col">{{ order.id }}</th>
+                <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a>
+                </th>
+                <th scope="col">{{ order.order_date }}</th>
+                <th scope="col">{{ order.pib }}</th>
+                <th scope="col">{{ order.contact }}</th>
+                <th scope="col">{{ order.location }}</th>
+                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col">{{ order.sovet }}</th>
+                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col">{{ order.ipn }}</th>
+                <th scope="col">{{ order.pasport }}</th>
+                <th scope="col">{{ order.type_of_works }}</th>
+                <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.exist_mark }}</th>
+                <th scope="col">{{ order.date }}</th>
+                <th scope="col">{{ order.developer }}</th>
+                <th scope="col">{{ order.total }}</th>
+                <th scope="col">{{ order.payed }}</th>
+                <th scope="col">{{ order.sending_date }}</th>
+                <th scope="col">{{ order.pre_response_date }}</th>
+                <th scope="col">{{ order.response_date }}</th>
+                <th scope="col">{{ order.vidpovidalny }}</th>
+                <th scope="col">{{ order.first_date }}</th>
+                <th scope="col">{{ order.akt_vigotovleno_date }}</th>
+                <th scope="col">{{ order.akt_pidpisano_date }}</th>
+                <th scope="col">{{ order.granichniy_complete_date }}</th>
+                <th scope="col">{{ order.complite_date }}</th>
+                <th scope="col">{{ order.pogodjenya }}</th>
+                <th scope="col">{{ order.expertise }}</th>
+                <th scope="col">{{ order.podonya_date }}</th>
+                <th scope="col">{{ order.number_ZV }}</th>
+                <th scope="col">{{ order.register_ZD }}</th>
+                <th scope="col">{{ order.first_session_date }}</th>
+                <th scope="col">{{ order.response_rada }}</th>
+                <th scope="col">{{ order.oskargenya_1 }}</th>
+                <th scope="col">{{ order.dev_message_mov_zgoda }}</th>
+                <th scope="col">{{ order.oskargenya_2 }}</th>
+                <th scope="col">{{ order.sending_date_zatverg }}</th>
+                <th scope="col">{{ order.oskargenya_zatverg }}</th>
+                <th scope="col">{{ order.register }}</th>
+                <th scope="col">{{ order.note }}</th>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elif user.is_authenticated and user.orderer.role == 'develop' %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Тип роботи</th>
+            <th scope="col">Замовник</th>
+            <th scope="col">Наявність геодезії</th>
+            <th scope="col">Дата геодезії</th>
+            <th scope="col">Розробник</th>
+            <th scope="col">Дата відправки</th>
+            <th scope="col">Очікувана дата отримання</th>
+            <th scope="col">Дата отримання запит</th>
+            <th scope="col">Відповідальний</th>
+            <th scope="col">Дата отримання розробки</th>
+            <th scope="col">Акти меж виготовленно</th>
+            <th scope="col">Акти меж повернуто підписані</th>
+            <th scope="col">Граничний термін виконання</th>
+            <th scope="col">Виконано фактично</th>
+            <th scope="col">Погодження документации</th>
+            <th scope="col">Експертиза</th>
+            <th scope="col">РЗД дата подання</th>
+            <th scope="col">РЗД Номер ЗВ</th>
+            <th scope="col">РЗД Зареєстровано</th>
+            <th scope="col">Примітки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="col">{{ order.id }}</th>
+                <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a></th>
+                <th scope="col">{{ order.order_date }}</th>
+                <th scope="col">{{ order.pib }}</th>
+                <th scope="col">{{ order.contact }}</th>
+                <th scope="col">{{ order.location }}</th>
+                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col">{{ order.sovet }}</th>
+                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col">{{ order.ipn }}</th>
+                <th scope="col">{{ order.pasport }}</th>
+                <th scope="col">{{ order.type_of_works }}</th>
+                <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.exist_mark }}</th>
+                <th scope="col">{{ order.date }}</th>
+                <th scope="col">{{ order.developer }}</th>
+                <th scope="col">{{ order.sending_date }}</th>
+                <th scope="col">{{ order.pre_response_date }}</th>
+                <th scope="col">{{ order.response_date }}</th>
+                <th scope="col">{{ order.vidpovidalny }}</th>
+                <th scope="col">{{ order.first_date }}</th>
+                <th scope="col">{{ order.akt_vigotovleno_date }}</th>
+                <th scope="col">{{ order.akt_pidpisano_date }}</th>
+                <th scope="col">{{ order.granichniy_complete_date }}</th>
+                <th scope="col">{{ order.complite_date }}</th>
+                <th scope="col">{{ order.pogodjenya }}</th>
+                <th scope="col">{{ order.expertise }}</th>
+                <th scope="col">{{ order.podonya_date }}</th>
+                <th scope="col">{{ order.number_ZV }}</th>
+                <th scope="col">{{ order.register_ZD }}</th>
+                <th scope="col">{{ order.note }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elif user.is_authenticated and user.orderer.role == 'law' %}
+    <table class="table" style="font-size: 7px">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Тип роботи</th>
+            <th scope="col">Замовник</th>
+            <th scope="col">Розробник</th>
+            <th scope="col">Дата відправки</th>
+            <th scope="col">Очікувана дата отримання</th>
+            <th scope="col">Дата отримання запит</th>
+            <th scope="col">Відповідальний</th>
+            <th scope="col">Дата отримання розробки</th>
+            <th scope="col">Акти меж виготовленно</th>
+            <th scope="col">Акти меж повернуто підписані</th>
+            <th scope="col">Граничний термін виконання</th>
+            <th scope="col">Виконано фактично</th>
+            <th scope="col">Погодження документації</th>
+            <th scope="col">Експертиза</th>
+            <th scope="col">РЗД дата подання</th>
+            <th scope="col">РЗД Номер ЗВ</th>
+            <th scope="col">РЗД Зареєстровано</th>
+            <th scope="col">На 1 сесію відправленно</th>
+            <th scope="col">На 1 сесію отримано</th>
+            <th scope="col">На 1 сесію отримано + 30 днів</th>
+            <th scope="col">Відповідь ради</th>
+            <th scope="col">Оскарження 1(1 сесія)</th>
+            <th scope="col">Повідомлення про розробку(МЗ)</th>
+            <th scope="col">Оскарження 1(Реєстрація ЗД)</th>
+            <th scope="col">Затвердження дата відправки</th>
+            <th scope="col">Затвердження дата отримання</th>
+            <th scope="col">Затвердження дата отримання + 14 днів</th>
+            <th scope="col">Оскардження Затвердження</th>
+            <th scope="col">Реєстрація права властності</th>
+            <th scope="col">Примітки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+            <th scope="col">{{ order.id }}</th>
+            <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a>
+            </th>
+            <th scope="col">{{ order.order_date }}</th>
+            <th scope="col">{{ order.pib }}</th>
+            <th scope="col">{{ order.contact }}</th>
+            <th scope="col">{{ order.location }}</th>
+            <th scope="col">{{ order.rayon }}</th>
+            <th scope="col">{{ order.sovet }}</th>
+            <th scope="col">{{ order.kadastr_number }}</th>
+            <th scope="col">{{ order.ipn }}</th>
+            <th scope="col">{{ order.pasport }}</th>
+            <th scope="col">{{ order.type_of_works }}</th>
+            <th scope="col">{{ order.orderer }}</th>
+            <th scope="col">{{ order.developer }}</th>
+            <th scope="col">{{ order.sending_date }}</th>
+            <th scope="col">{{ order.pre_response_date }}</th>
+            <th scope="col">{{ order.response_date }}</th>
+            <th scope="col">{{ order.vidpovidalny }}</th>
+            <th scope="col">{{ order.first_date }}</th>
+            <th scope="col">{{ order.akt_vigotovleno_date }}</th>
+            <th scope="col">{{ order.akt_pidpisano_date }}</th>
+            <th scope="col">{{ order.granichniy_complete_date }}</th>
+            <th scope="col">{{ order.complite_date }}</th>
+            <th scope="col">{{ order.pogodjenya }}</th>
+            <th scope="col">{{ order.expertise }}</th>
+            <th scope="col">{{ order.podonya_date }}</th>
+            <th scope="col">{{ order.number_ZV }}</th>
+            <th scope="col">{{ order.register_ZD }}</th>
+            <th scope="col">{{ order.first_session_date }}</th>
+            <th scope="col">{{ order.first_session_response_date }}</th>
+            <th scope="col">{{ order.first_session_response_date_plus_30_days }}</th>
+            <th scope="col">{{ order.response_rada }}</th>
+            <th scope="col">{{ order.oskargenya_1 }}</th>
+            <th scope="col">{{ order.dev_message_mov_zgoda }}</th>
+            <th scope="col">{{ order.oskargenya_2 }}</th>
+            <th scope="col">{{ order.sending_date_zatverg }}</th>
+            <th scope="col">{{ order.sending_response_date_zatverg }}</th>
+            <th scope="col">{{ order.sending_response_date_zatverg_plus_14_days }}</th>
+            <th scope="col">{{ order.oskargenya_zatverg }}</th>
+            <th scope="col">{{ order.register }}</th>
+            <th scope="col">{{ order.note }}</th>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elif user.is_authenticated and user.orderer.role == 'buchalter' %}
+    <table class="table" style="font-size: 7px">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номер договора</th>
+            <th scope="col">Дата договору</th>
+            <th scope="col">П.І.Б</th>
+            <th scope="col">Контакти</th>
+            <th scope="col">Адреса Ділянки</th>
+            <th scope="col">Район</th>
+            <th scope="col">Рада</th>
+            <th scope="col">Кадастровый номер</th>
+            <th scope="col">ІПН</th>
+            <th scope="col">Паспорт</th>
+            <th scope="col">Загальна сума</th>
+            <th scope="col">Сплаченно</th>
+            <th scope="col">Примітки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="col">{{ order.id }}</th>
+                <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a>
+                </th>
+                <th scope="col">{{ order.order_date }}</th>
+                <th scope="col">{{ order.pib }}</th>
+                <th scope="col">{{ order.contact }}</th>
+                <th scope="col">{{ order.location }}</th>
+                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col">{{ order.sovet }}</th>
+                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col">{{ order.ipn }}</th>
+                <th scope="col">{{ order.pasport }}</th>
+                <th scope="col">{{ order.total }}</th>
+                <th scope="col">{{ order.payed }}</th>
+                <th scope="col">{{ order.note }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% elif user.is_authenticated and user.orderer.role == 'zamovnik' %}
+        <table class="table" style="font-size: 7px">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Номер договора</th>
+                <th scope="col">Дата договору</th>
+                <th scope="col">П.І.Б</th>
+                <th scope="col">Контакти</th>
+                <th scope="col">Адреса Ділянки</th>
+                <th scope="col">Район</th>
+                <th scope="col">Рада</th>
+                <th scope="col">Кадастровый номер</th>
+                <th scope="col">ІПН</th>
+                <th scope="col">Паспорт</th>
+                <th scope="col">Тип роботи</th>
+                <th scope="col">Замовник</th>
+                <th scope="col">Наявність геодезії</th>
+                <th scope="col">Дата геодезії</th>
+                <th scope="col">Дата отримання розробки</th>
+                <th scope="col">Акти меж виготовленно</th>
+                <th scope="col">Акти меж повернуто підписані</th>
+                <th scope="col">Граничний термін виконання</th>
+                <th scope="col">Виконано фактично</th>
+                <th scope="col">Погодження документації</th>
+                <th scope="col">Експертиза</th>
+                <th scope="col">РЗД дата подання</th>
+                <th scope="col">РЗД Номер ЗВ</th>
+                <th scope="col">РЗД Зареєстровано</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                {% if order.orderer == user.orderer.orderer %}
+                <tr>
+                    <th scope="col">{{ order.id }}</th>
+                    <th scope="col"><a href="{% url 'order_edit' order.order_number %}">{{ order.order_number }}</a>
+                    </th>
+                    <th scope="col">{{ order.order_date }}</th>
+                    <th scope="col">{{ order.pib }}</th>
+                    <th scope="col">{{ order.contact }}</th>
+                    <th scope="col">{{ order.location }}</th>
+                    <th scope="col">{{ order.rayon }}</th>
+                    <th scope="col">{{ order.sovet }}</th>
+                    <th scope="col">{{ order.kadastr_number }}</th>
+                    <th scope="col">{{ order.ipn }}</th>
+                    <th scope="col">{{ order.pasport }}</th>
+                    <th scope="col">{{ order.type_of_works }}</th>
+                    <th scope="col">{{ order.orderer }}</th>
+                    <th scope="col">{{ order.exist_mark }}</th>
+                    <th scope="col">{{ order.date }}</th>
+                    <th scope="col">{{ order.first_date }}</th>
+                    <th scope="col">{{ order.akt_vigotovleno_date }}</th>
+                    <th scope="col">{{ order.akt_pidpisano_date }}</th>
+                    <th scope="col">{{ order.granichniy_complete_date }}</th>
+                    <th scope="col">{{ order.complite_date }}</th>
+                    <th scope="col">{{ order.pogodjenya }}</th>
+                    <th scope="col">{{ order.expertise }}</th>
+                    <th scope="col">{{ order.podonya_date }}</th>
+                    <th scope="col">{{ order.number_ZV }}</th>
+                    <th scope="col">{{ order.register_ZD }}</th>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        Вы не авторизированы
+        <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+{% endblock content %}
