@@ -65,7 +65,7 @@
                 <th scope="col">{{ order.location }}</th>
                 <th scope="col">{{ order.rayon }}</th>
                 <th scope="col">{{ order.sovet }}</th>
-                <th scope="col">{{ order.kadastr_number }}</th>
+                <th scope="col"><a href="{% url 'people_on_kadastr_numbers' order.kadastr_number %}">{{ order.kadastr_number }}</a></th>
                 <th scope="col">{{ order.ipn }}</th>
                 <th scope="col">{{ order.pasport }}</th>
                 <th scope="col">{{ order.type_of_works }}</th>

@@ -10,11 +10,19 @@ class Orderer(models.Model):
     def __str__(self):
         return self.name
 
+
 class Vipovilny(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
+
+class Kadastr_Number(models.Model):
+    kadastr_number = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.kadastr_number
 
 
 class TypeWork(models.Model):
@@ -24,10 +32,18 @@ class TypeWork(models.Model):
         return self.type_of_work
 
 
+class Rozrobnik(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='orderer', on_delete=models.CASCADE)
     orderer = models.ForeignKey(Orderer, on_delete=models.CASCADE, blank=True, null=True)
     role = models.CharField(max_length=30, blank=True, null=True)
+
 
 class Rayon(models.Model):
     name = models.CharField(max_length=250)
@@ -35,12 +51,8 @@ class Rayon(models.Model):
     def __str__(self):
         return self.name
 
-class Order(models.Model):
-    RAYON_CHOICES = (
-        ('Лозовской', 'Лозовской'),
-        ('Купянский', 'Купянский')
-    )
 
+class Order(models.Model):
     order_number = models.CharField(max_length=100, unique=True)
     order_date = models.DateField()
     pib = models.CharField(max_length=250)
@@ -59,12 +71,14 @@ class Order(models.Model):
         ('✕', '✕')
     )
     exist_mark = models.CharField(default='✕', max_length=10, choices=MARK_CHOICES, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateField(blank=True, null=True,)
+
     #rozrobnyk
-    developer = models.CharField(default='', max_length=30, blank=True, null=True)
+    developer = models.ForeignKey(Rozrobnik, on_delete=models.CASCADE, related_name='developer', blank=True, null=True)
     #law
     RESPONSE_RADA_CHOISE = (
-        ('Позгодженно', 'Позгодженно'),
+        ('Дозвіл', 'Дозвіл'),
+        ('Не розглянуто протягом 1 міс.', 'Не розглянуто протягом 1 міс.'),
         ('Відмова', 'Відмова')
     )
     sending_date = models.DateField(blank=True, null=True)

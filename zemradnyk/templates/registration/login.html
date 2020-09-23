@@ -1,25 +1,38 @@
-{% extends "base.html" %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'img/logo.png' %}">
 
-{% block content %}
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+    <title>Увійти</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<form class="form-signin" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Будь ласка увійдіть да Вашого аккаунта</h1>
+    <label for="{{form.username.id_for_label}}" class="sr-only">Email address</label>
+    {{ form.username }}
+    <label for="{{form.password.id_for_label}}" class="sr-only">Password</label>
+    {{ form.password }}
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020 - {% now "Y" as current_year %}{{ current_year }}</p>
+</form>
 
 
+</body>
+</html>
 
 
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="exampleInputEmail1">Никнейм</label>
-            {{ form.username }}
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Пароль</label>
-            {{ form.password }}
-        </div>
-        <input type="submit" class="btn btn-primary" value="Войти"/>
-        <input type="hidden" name="next" value="{{ next }}"/>
-    </form>
-
-{% endblock %}

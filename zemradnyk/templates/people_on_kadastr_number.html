@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for person in people %}
+        <p>{{ person.pib }}</p>
+        <p>{{ person.kadastr_number }}</p>
+        <p>{{ person.orderer }}</p>
+    {% endfor %}
+
+{% endblock %}

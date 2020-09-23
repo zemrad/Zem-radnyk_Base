@@ -6,8 +6,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
-          integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static '/css/signin.css' %}">
 
     <!-- JS, Popper.js, and jQuery -->
 </head>
@@ -22,10 +21,33 @@
             <img src="{% static 'img/logo.png' %}" width="50" height="50" alt="">
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'order_list' %}">Договора</a>
+        {% if user.is_authenticated %}
+            {% if user.orderer.role != 'zamovnik' %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ділянки
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'kadastr_numbers' %}">Показати всі ділянки</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'add_kadastr_numbers' %}">Додати ділянку</a>
+                </div>
             </li>
+            {% endif %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Договора
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'order_list' %}">Показати всі договора</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'add_order' %}">Додати договір</a>
+                </div>
+            </li>
+        {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -73,13 +95,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
-        integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-<script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-</script>
+
 
 </body>
 </html>

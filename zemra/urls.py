@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.contrib.auth import views
+from zemradnyk.forms import UserLoginForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('zemradnyk.urls')),
-    path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/login/', views.LoginView.as_view(authentication_form=UserLoginForm), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 ]
+#template_name="registration/login.html", authentication_form=UserLoginForm

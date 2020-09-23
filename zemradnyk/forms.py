@@ -1,8 +1,7 @@
 from django import forms
-from .models import Order
+from .models import Order, Kadastr_Number
+from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
-
-
 
 
 class DirectorForm(forms.ModelForm):
@@ -14,8 +13,8 @@ class DirectorForm(forms.ModelForm):
                   'first_session_date', 'first_session_response_date', 'response_rada', 'oskargenya_1', 'dev_message_mov_zgoda',
                   'oskargenya_2', 'sending_date_zatverg', 'sending_response_date_zatverg', 'oskargenya_zatverg', 'register', 'register_ZD',
                   'vidpovidalny', 'first_date', 'akt_vigotovleno_date', 'akt_pidpisano_date', 'granichniy_complete_date',
-                  'complite_date', 'pogodjenya', 'expertise', 'podonya_date', 'number_ZV', 'register', 'total', 'payed', 'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days')
-
+                  'complite_date', 'pogodjenya', 'expertise', 'podonya_date', 'number_ZV', 'register', 'total', 'payed',
+                  'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days')
 
         widgets = {
             'order_date': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
@@ -43,7 +42,7 @@ class DirectorForm(forms.ModelForm):
             'type_of_works': forms.Select(attrs={'class': 'form-control'}),
             'orderer': forms.Select(attrs={'class': 'form-control'}),
             'exist_mark': forms.Select(attrs={'class': 'form-control'}),
-            'developer': forms.TextInput(attrs={'class': 'form-control'}),
+            'developer': forms.Select(attrs={'class': 'form-control'}),
             'response_rada': forms.Select(attrs={'class': 'form-control'}),
             'oskargenya_1': forms.TextInput(attrs={'class': 'form-control'}),
             'dev_message_mov_zgoda': forms.TextInput(attrs={'class': 'form-control'}),
@@ -61,3 +60,29 @@ class DirectorForm(forms.ModelForm):
             'order_number': forms.TextInput(attrs={'class': 'form-control'}),
             'note': forms.Textarea(attrs={'class': 'form-control'}),
         }
+        date_geodeziya = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
+
+
+class KadastrNumberForm(forms.ModelForm):
+
+    class Meta:
+        model = Kadastr_Number
+        fields = ('kadastr_number',)
+        widgets = {
+            'kadastr_number': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+
+class UserLoginForm(AuthenticationForm):
+     def __init__(self, *args, **kwargs):
+         super(UserLoginForm, self).__init__(*args, **kwargs)
+
+     username = forms.CharField(widget=forms.TextInput(
+         attrs={'class': 'form-control', 'placeholder': 'Логин', 'id': 'hello'}))
+     password = forms.CharField(widget=forms.PasswordInput(
+         attrs={
+             'class': 'form-control',
+             'placeholder': 'Пароль',
+             'id': 'hi',
+         }
+ ))

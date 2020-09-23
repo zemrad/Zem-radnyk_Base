@@ -13,7 +13,7 @@
                             <p>Номер договора:</p> {{ form.order_number }}
                         </div>
                         <div class="form-group col-md-4">
-                            <p>Code</p>
+                            <p>Код</p>
                             <select name="code_of_kadastr_number" class="form-control">
                                 <option></option>
                                 <option>I</option>
@@ -42,7 +42,7 @@
                     <p>Дата отримання: {{ form.response_date }}</p>
                     <p>Відповідальний: {{ form.vidpovidalny }}</p>
                     <p>Дата отримання(Розробка): {{ form.first_date }}</p>
-                    <p>Акт виготовлення меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
+                    <p>Акт погодження меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
                     <p>Акти меж повернуто підписані: {{ form.akt_pidpisano_date }}</p>
                     <p>Граничний термін виконання: {{ form.granichniy_complete_date }}</p>
                     <p>Фактично виконано: {{ form.complite_date }}</p>
@@ -64,12 +64,19 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'law' %}
-                    <p>Номер договора: {{ form.order_number }}
-                        <select name="code_of_kadastr_number">
-                            <option></option>
-                            <option>I</option>
-                            <option>K</option>
-                        </select></p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Номер договора:</p> {{ form.order_number }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p>Код</p>
+                            <select name="code_of_kadastr_number" class="form-control">
+                                <option></option>
+                                <option>I</option>
+                                <option>K</option>
+                            </select>
+                        </div>
+                    </div>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -97,12 +104,19 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'manager' %}
-                    <p>Номер договора: {{ form.order_number }}
-                        <select name="code_of_kadastr_number">
-                            <option></option>
-                            <option>I</option>
-                            <option>K</option>
-                        </select></p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Номер договора:</p> {{ form.order_number }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p>Код</p>
+                            <select name="code_of_kadastr_number" class="form-control">
+                                <option></option>
+                                <option>I</option>
+                                <option>K</option>
+                            </select>
+                        </div>
+                    </div>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -119,12 +133,19 @@
                     <p>Фактично сплачено: {{ form.payed }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'develop' %}
-                    <p>Номер договора: {{ form.order_number }}
-                        <select name="code_of_kadastr_number">
-                            <option></option>
-                            <option>I</option>
-                            <option>K</option>
-                        </select></p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Номер договора:</p> {{ form.order_number }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p>Код</p>
+                            <select name="code_of_kadastr_number" class="form-control">
+                                <option></option>
+                                <option>I</option>
+                                <option>K</option>
+                            </select>
+                        </div>
+                    </div>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -139,7 +160,7 @@
                     <p>Розробник: {{ form.develop }}</p>
                     <p>Відповідальний: {{ form.vidpovidalny }}</p>
                     <p>Дата отримання(Розробка): {{ form.first_date }}</p>
-                    <p>Акт виготовлення меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
+                    <p>Акт погодження меж(Розробка): {{ form.akt_vigotovleno_date }}</p>
                     <p>Акти меж повернуто підписані: {{ form.akt_pidpisano_date }}</p>
                     <p>Граничний термін виконання: {{ form.granichniy_complete_date }}</p>
                     <p>Фактично виконано: {{ form.complite_date }}</p>
@@ -170,12 +191,19 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'zamovnik' %}
-                    <p>Номер договора: {{ form.order_number }}
-                        <select name="code_of_kadastr_number">
-                            <option></option>
-                            <option>I</option>
-                            <option>K</option>
-                        </select></p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Номер договора:</p> {{ form.order_number }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p>Код</p>
+                            <select name="code_of_kadastr_number" class="form-control">
+                                <option></option>
+                                <option>I</option>
+                                <option>K</option>
+                            </select>
+                        </div>
+                    </div>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -187,7 +215,6 @@
                     <p>Рада: {{ form.sovet }}</p>
                     <p>Тип робіт: {{ form.type_of_works }}</p>
                     <p>Загальна сума робіт: {{ form.total }}</p>
-                    <p>Фактично сплачено: {{ form.payed }}</p>
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% else %}
