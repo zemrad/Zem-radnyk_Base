@@ -62,7 +62,7 @@ class Order(models.Model):
     ipn = models.CharField(max_length=50)
     pasport = models.CharField(max_length=25)
     rayon =  models.ForeignKey(Rayon, on_delete=models.CASCADE)
-    sovet = models.CharField(max_length=150)
+    sovet = models.CharField(max_length=150, blank=True, null=True)
     type_of_works = models.ForeignKey(TypeWork, on_delete=models.CASCADE, blank=True, null=True)
     orderer = models.ForeignKey(Orderer, on_delete=models.CASCADE, blank=True, null=True)
     #geodeziya

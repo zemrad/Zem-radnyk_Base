@@ -114,8 +114,6 @@ class KadastrNumberView(ListView):
     template_name = 'kadastr_base.html'
 
 
-
-
 class PeopleOnCadastrNumber(View):
 
     def get(self, request, **kwargs):
@@ -123,6 +121,32 @@ class PeopleOnCadastrNumber(View):
             if request.user.is_authenticated and request.user.orderer.role != 'zamovnik':
                 people = Order.objects.all().filter(kadastr_number=kwargs['slug'])
                 return render(request, 'people_on_kadastr_number.html', context={'people': people})
+            else:
+                return render(request, 'access_error.html')
+        else:
+            return redirect('login')
+
+
+class PeopleOnRayon(View):
+
+    def get(self, request, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_authenticated and request.user.orderer.role != 'zamovnik':
+                orders = Order.objects.all().filter(rayon__name=kwargs['slug'])
+                return render(request, 'orders.html', context={'orders': orders})
+            else:
+                return render(request, 'access_error.html')
+        else:
+            return redirect('login')
+
+
+class PeopleRozrobnik(View):
+
+    def get(self, request, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_authenticated and request.user.orderer.role != 'zamovnik':
+                orders = Order.objects.all().filter(developer__name=kwargs['slug'])
+                return render(request, 'orders.html', context={'orders': orders})
             else:
                 return render(request, 'access_error.html')
         else:
@@ -141,9 +165,10 @@ class AddKadastrNumber(View):
         else:
             return redirect('login')
 
-
     def post(self, request):
         form = KadastrNumberForm(request.POST)
         if form.is_valid():
             kadastr_number_from_form = form.save()
         return redirect('kadastr_numbers')
+
+

@@ -63,7 +63,7 @@
                 <th scope="col">{{ order.pib }}</th>
                 <th scope="col">{{ order.contact }}</th>
                 <th scope="col">{{ order.location }}</th>
-                <th scope="col">{{ order.rayon }}</th>
+                <th scope="col"><a href="{% url 'rayon' order.rayon %}">{{ order.rayon }}</a></th>
                 <th scope="col">{{ order.sovet }}</th>
                 <th scope="col"><a href="{% url 'people_on_kadastr_numbers' order.kadastr_number %}">{{ order.kadastr_number }}</a></th>
                 <th scope="col">{{ order.ipn }}</th>
@@ -72,7 +72,7 @@
                 <th scope="col">{{ order.orderer }}</th>
                 <th scope="col">{{ order.exist_mark }}</th>
                 <th scope="col">{{ order.date }}</th>
-                <th scope="col">{{ order.developer }}</th>
+                <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
                 <th scope="col">{{ order.total }}</th>
                 <th scope="col">{{ order.payed }}</th>
                 <th scope="col">{{ order.sending_date }}</th>

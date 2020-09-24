@@ -1,7 +1,7 @@
 
 from django.urls import path
 from .views import IndexView, SearchView, SearchResultView, DirectorFormView, DirectorView, DirectorEditView,\
-    KadastrNumberView, PeopleOnCadastrNumber, AddKadastrNumber
+    KadastrNumberView, PeopleOnCadastrNumber, AddKadastrNumber, PeopleOnRayon, PeopleRozrobnik
 
 
 
@@ -15,5 +15,7 @@ urlpatterns = [
     path('kadastr-numbers', KadastrNumberView.as_view(), name='kadastr_numbers'),
     path('kadastr-numbers/<slug>/', PeopleOnCadastrNumber.as_view(), name='people_on_kadastr_numbers'),
     path('add/kadastr-numbers', AddKadastrNumber.as_view(), name='add_kadastr_numbers'),
+    path('rayon/orders/<slug>', PeopleOnRayon.as_view(), name='rayon'),
+    path('rozrobnik/orders/<slug>', PeopleRozrobnik.as_view(), name='rozrobnik'),
 
 ]
