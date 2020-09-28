@@ -3,7 +3,10 @@ from django.views.generic import ListView, View, UpdateView, FormView
 from .models import Order, Profile, Kadastr_Number
 from .forms import DirectorForm, KadastrNumberForm
 from datetime import timedelta
+from django.http import FileResponse
+from num2words import num2words
 from django.contrib.auth.decorators import login_required
+
 
 from django.db.models import Q
 
@@ -172,3 +175,26 @@ class AddKadastrNumber(View):
         return redirect('kadastr_numbers')
 
 
+class MakeKontrakt(View):
+    pass
+    #
+    # def get(self, request, **kwargs):
+    #     order = get_object_or_404(Order, order_number=kwargs['slug'])
+    #     from docxtpl import DocxTemplate
+    #     doc = DocxTemplate('static/text.docx')
+    #     text = num2words(order.total, lang='uk')
+    #     if text[-1:] == 'на':
+    #         text += " гривня"
+    #     elif text[-1:] == 'і' and text[-1:] == 'и':
+    #         text += ' гривні'
+    #     else:
+    #         text += ' гривень'
+    #
+    #     context = {'order_number': order.order_number, 'date': order.order_date, 'pib': order.pib, 'pasport': order.pasport, 'sum': text}
+    #     doc.render(context)
+    #     doc.save("Договор № {}.docx".format(order.order_number))
+    #     file = open("Договор № {}.docx".format(order.order_number), 'rb')
+    #
+    #     print(text)
+    #     response = FileResponse(file)
+    #     return response

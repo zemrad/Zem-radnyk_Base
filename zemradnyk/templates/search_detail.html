@@ -8,202 +8,205 @@
 
 
 
-        <a href="{% url 'order_edit' order.order_number %}">
-            <button class="btn-primary">Редагувати</button>
-        </a>
-        <div class="col-sm-5">
-            <table class="table table-borderless">
-                <tbody>
-                <tr>
-                    <th scope="row">id</th>
-                    <td>{{ order.id }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Номер договору</th>
-                    <td>{{ order.order_number }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Дата договору</th>
-                    <td>{{ order.order_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">П.І.Б.</th>
-                    <td>{{ order.pib }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Контакти</th>
-                    <td>{{ order.contact }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Адреса ділянки</th>
-                    <td>{{ order.location }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Район</th>
-                    <td>{{ order.rayon }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Рада</th>
-                    <td>{{ order.sovet }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Кадастровий номер</th>
-                    <td>{{ order.kadastr_number }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">ІПН</th>
-                    <td>{{ order.ipn }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Паспорт</th>
-                    <td>{{ order.pasport }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Тип робіт</th>
-                    <td>{{ order.type_of_works }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Кадастровий номер</th>
-                    <td>{{ order.kadastr_number }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Замовник</th>
-                    <td>{{ order.orderer }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Наявність геодезії</th>
-                    <td>{{ order.exist_mark }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Дата геодезії</th>
-                    <td>{{ order.date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Розробник</th>
-                    <td>{{ order.developer }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Загальна сума</th>
-                    <td>{{ order.total }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Фактично сплачено</th>
-                    <td>{{ order.payed }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Запит на інформацію відправленно</th>
-                    <td>{{ order.sending_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Запит на інформацію очікувана дата отримання</th>
-                    <td>{{ order.pre_response_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Запит на інформацію дата отримання</th>
-                    <td>{{ order.response_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Відповідальний</th>
-                    <td>{{ order.vidpovidalny }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Дата отримання на розробку</th>
-                    <td>{{ order.first_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Акт меж виготовленно</th>
-                    <td>{{ order.akt_vigotovleno_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Акт меж повернуто підписані</th>
-                    <td>{{ order.akt_pidpisano_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Граничний термін виконання</th>
-                    <td>{{ order.granichniy_complete_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Фактично виконано</th>
-                    <td>{{ order.complite_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Погодження документації</th>
-                    <td>{{ order.pogodjenya }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Експертиза</th>
-                    <td>{{ order.expertise }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Реєстрація ЗД дата подання</th>
-                    <td>{{ order.podonya_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Номер ЗВ</th>
-                    <td>{{ order.number_ZV }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Зареєстровано</th>
-                    <td>{{ order.register_ZD }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">На 1 сесію відправленно</th>
-                    <td>{{ order.first_session_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">1 сессія отримано </th>
-                    <td>{{ order.first_session_response_date }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Сплив 1 місяцю</th>
-                    <td>{{ order.first_session_response_date_plus_30_days }}</td>
-                </tr>
+            <a href="{% url 'order_edit' order.order_number %}">
+                <button class="btn-primary">Редагувати</button>
+            </a>
+            <a href="{% url 'document' order.order_number %}">
+                <button class="btn-primary">Получить договор</button>
+            </a>
+            <div class="col-sm-5">
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr>
+                        <th scope="row">id</th>
+                        <td>{{ order.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Номер договору</th>
+                        <td>{{ order.order_number }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Дата договору</th>
+                        <td>{{ order.order_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">П.І.Б.</th>
+                        <td>{{ order.pib }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Контакти</th>
+                        <td>{{ order.contact }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Адреса ділянки</th>
+                        <td>{{ order.location }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Район</th>
+                        <td>{{ order.rayon }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Рада</th>
+                        <td>{{ order.sovet }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Кадастровий номер</th>
+                        <td>{{ order.kadastr_number }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ІПН</th>
+                        <td>{{ order.ipn }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Паспорт</th>
+                        <td>{{ order.pasport }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Тип робіт</th>
+                        <td>{{ order.type_of_works }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Кадастровий номер</th>
+                        <td>{{ order.kadastr_number }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Замовник</th>
+                        <td>{{ order.orderer }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Наявність геодезії</th>
+                        <td>{{ order.exist_mark }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Дата геодезії</th>
+                        <td>{{ order.date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Розробник</th>
+                        <td>{{ order.developer }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Загальна сума</th>
+                        <td>{{ order.total }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Фактично сплачено</th>
+                        <td>{{ order.payed }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Запит на інформацію відправленно</th>
+                        <td>{{ order.sending_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Запит на інформацію очікувана дата отримання</th>
+                        <td>{{ order.pre_response_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Запит на інформацію дата отримання</th>
+                        <td>{{ order.response_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Відповідальний</th>
+                        <td>{{ order.vidpovidalny }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Дата отримання на розробку</th>
+                        <td>{{ order.first_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Акт меж виготовленно</th>
+                        <td>{{ order.akt_vigotovleno_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Акт меж повернуто підписані</th>
+                        <td>{{ order.akt_pidpisano_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Граничний термін виконання</th>
+                        <td>{{ order.granichniy_complete_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Фактично виконано</th>
+                        <td>{{ order.complite_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Погодження документації</th>
+                        <td>{{ order.pogodjenya }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Експертиза</th>
+                        <td>{{ order.expertise }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Реєстрація ЗД дата подання</th>
+                        <td>{{ order.podonya_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Номер ЗВ</th>
+                        <td>{{ order.number_ZV }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Зареєстровано</th>
+                        <td>{{ order.register_ZD }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">На 1 сесію відправленно</th>
+                        <td>{{ order.first_session_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">1 сессія отримано</th>
+                        <td>{{ order.first_session_response_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Сплив 1 місяцю</th>
+                        <td>{{ order.first_session_response_date_plus_30_days }}</td>
+                    </tr>
 
-                <tr>
-                    <th scope="row">Відьповідь ради</th>
-                    <td>{{ order.response_rada }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Оскарження 1 сессії</th>
-                    <td>{{ order.oskargenya_1 }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Погодження про розробку за мовчазною згодою</th>
-                    <td>{{ order.dev_message_mov_zgoda }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Оскарженя реєстрації ЗД</th>
-                    <td>{{ order.oskargenya_2 }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Дата відправки затвердження</th>
-                    <td>{{ order.sending_date_zatverg }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Отримання затверження</th>
-                    <td>{{ order.sending_response_date_zatverg }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Граничний термін затвердження</th>
-                    <td>{{ order.sending_response_date_zatverg_plus_14_days }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Оскардження затверження</th>
-                    <td>{{ order.oskargenya_zatverg }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Реєстрація права власності</th>
-                    <td>{{ order.register }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Примітки</th>
-                    <td>{{ order.note }}</td>
-                </tr>
+                    <tr>
+                        <th scope="row">Відьповідь ради</th>
+                        <td>{{ order.response_rada }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Оскарження 1 сессії</th>
+                        <td>{{ order.oskargenya_1 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Погодження про розробку за мовчазною згодою</th>
+                        <td>{{ order.dev_message_mov_zgoda }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Оскарженя реєстрації ЗД</th>
+                        <td>{{ order.oskargenya_2 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Дата відправки затвердження</th>
+                        <td>{{ order.sending_date_zatverg }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Отримання затверження</th>
+                        <td>{{ order.sending_response_date_zatverg }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Граничний термін затвердження</th>
+                        <td>{{ order.sending_response_date_zatverg_plus_14_days }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Оскардження затверження</th>
+                        <td>{{ order.oskargenya_zatverg }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Реєстрація права власності</th>
+                        <td>{{ order.register }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Примітки</th>
+                        <td>{{ order.note }}</td>
+                    </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-        </div>
-         {% endfor %}
+            </div>
+        {% endfor %}
     {% endif %}
 {% endblock %}
