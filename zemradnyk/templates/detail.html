@@ -4,20 +4,20 @@
 {% endblock %}
 {% block content %}
     {% if user.is_staff %}
-        {% for order in orders %}
-
-
 
             <a href="{% url 'order_edit' order.order_number %}">
                 <button class="btn-primary">Редагувати</button>
             </a>
             <a href="{% url 'document' order.order_number %}">
-                <button class="btn-primary">Получить договор</button>
+                <button class="btn-primary">Завантажити договір</button>
             </a>
             <div class="col-sm-5">
                 <table class="table table-borderless">
                     <tbody>
-
+                    <tr>
+                        <th scope="row">id</th>
+                        <td>{{ order.id }}</td>
+                    </tr>
                     <tr>
                         <th scope="row">Номер договору</th>
                         <td>{{ order.order_number }}</td>
@@ -204,6 +204,6 @@
                 </table>
 
             </div>
-        {% endfor %}
+
     {% endif %}
 {% endblock %}

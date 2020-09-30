@@ -52,7 +52,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Профиль
+                        Аккаунт
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">{{ request.user.username }}</a>
@@ -67,7 +67,7 @@
             {% endif %}
 
         </ul>
-        {% if user.is_staff %}
+        {% if user.role != 'zamovnik' %}
             <form method="post" action="{% url 'search' %}" class="form-inline my-2 my-lg-0">
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" type="search" name="search" placeholder="Номер договору"

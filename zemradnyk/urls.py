@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import IndexView, SearchView, SearchResultView, DirectorFormView, DirectorView, DirectorEditView,\
-    KadastrNumberView, PeopleOnCadastrNumber, AddKadastrNumber, PeopleOnRayon, PeopleRozrobnik, MakeKontrakt
+    KadastrNumberView, PeopleOnCadastrNumber, AddKadastrNumber, PeopleOnRayon, PeopleRozrobnik, MakeKontrakt, OrderDetail
 
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     path('rayon/orders/<slug>', PeopleOnRayon.as_view(), name='rayon'),
     path('rozrobnik/orders/<slug>', PeopleRozrobnik.as_view(), name='rozrobnik'),
     path('document/<slug>', MakeKontrakt.as_view(), name='document'),
+    path('detail/<slug>', OrderDetail.as_view(), name='detail'),
 
 ]

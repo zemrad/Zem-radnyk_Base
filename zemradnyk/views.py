@@ -5,7 +5,7 @@ from .forms import DirectorForm, KadastrNumberForm
 from datetime import timedelta
 from django.http import FileResponse
 from num2words import num2words
-from django.contrib.auth.decorators import login_required
+from babel.dates import format_date
 
 
 from django.db.models import Q
@@ -49,6 +49,15 @@ class DirectorView(View):
             return redirect('login')
 
 
+class OrderDetail(View):
+    def get(self, request, **kwargs):
+        if request.user.is_authenticated:
+            order = get_object_or_404(Order, order_number=kwargs['slug'])
+            return render(request, 'detail.html', {'order': order})
+        else:
+            return redirect('login')
+
+
 class DirectorFormView(View):
     form_class = DirectorForm
     initial = {'key': 'value'}
@@ -77,7 +86,7 @@ class DirectorFormView(View):
                     days=14)
             order.order_number += request.POST['code_of_kadastr_number']
             order.save()
-        return redirect('/')
+        return redirect('detail', order.order_number)
 
 
 class DirectorEditView(View):
@@ -103,7 +112,7 @@ class DirectorEditView(View):
 
         com = form.save()
 
-        return redirect('index')
+        return redirect('detail', order.order_number)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -176,25 +185,40 @@ class AddKadastrNumber(View):
 
 
 class MakeKontrakt(View):
-    pass
-    #
-    # def get(self, request, **kwargs):
-    #     order = get_object_or_404(Order, order_number=kwargs['slug'])
-    #     from docxtpl import DocxTemplate
-    #     doc = DocxTemplate('static/text.docx')
-    #     text = num2words(order.total, lang='uk')
-    #     if text[-1:] == 'на':
-    #         text += " гривня"
-    #     elif text[-1:] == 'і' and text[-1:] == 'и':
-    #         text += ' гривні'
-    #     else:
-    #         text += ' гривень'
-    #
-    #     context = {'order_number': order.order_number, 'date': order.order_date, 'pib': order.pib, 'pasport': order.pasport, 'sum': text}
-    #     doc.render(context)
-    #     doc.save("Договор № {}.docx".format(order.order_number))
-    #     file = open("Договор № {}.docx".format(order.order_number), 'rb')
-    #
-    #     print(text)
-    #     response = FileResponse(file)
-    #     return response
+
+    def get(self, request, **kwargs):
+        if request.user.is_authenticated:
+            order = get_object_or_404(Order, order_number=kwargs['slug'])
+            from docxtpl import DocxTemplate
+            doc = DocxTemplate('static/text.docx')
+
+            if order.total != None:
+                total_text = num2words(order.total, lang='uk')
+
+                if total_text[-2:] == 'на':
+                    total_text += " гривня 00 копійок"
+                elif total_text[-2:] == 'вi':
+                    total_text += ' гривні 00 копійок'
+                elif total_text[-2:] == 'ри':
+                    total_text += ' гривні 00 копійок'
+                else:
+                    total_text += ' гривень 00 копійок'
+                total = float(order.total)
+
+            pib = order.pib.split(" ")
+            pib_small = ''
+            for i in pib[0:2]:
+                pib_small += i[0] + '. '
+            pib_small += pib[2]
+
+            context = {'order_number': order.order_number, 'order_date': order.order_date.strftime('%d.%m.%Y'),
+                       'total': total, 'total_text': total_text, 'pib': order.pib, 'ipn': order.ipn,
+                       'contact': order.contact, 'pasport': order.pasport, 'pib_small': pib_small, 'rayon': order.rayon, 'rada': order.sovet}
+            doc.render(context)
+            doc.save("Договор № {}.docx".format(order.order_number))
+            file = open("Договор № {}.docx".format(order.order_number), 'rb')
+
+            response = FileResponse(file)
+            return response
+        else:
+            return redirect('login')
