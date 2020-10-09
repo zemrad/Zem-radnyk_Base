@@ -3,10 +3,8 @@
     Повна інформація договору № {{ order.order_number }}
 {% endblock %}
 {% block content %}
-    {% if user.is_staff %}
+    {% if user.role != 'zamovnik' %}
         {% for order in orders %}
-
-
 
             <a href="{% url 'order_edit' order.order_number %}">
                 <button class="btn-primary">Редагувати</button>

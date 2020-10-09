@@ -3,7 +3,6 @@
     Повна інформація договору № {{ order.order_number }}
 {% endblock %}
 {% block content %}
-    {% if user.is_staff %}
 
             <a href="{% url 'order_edit' order.order_number %}">
                 <button class="btn-primary">Редагувати</button>
@@ -205,5 +204,4 @@
 
             </div>
 
-    {% endif %}
 {% endblock %}

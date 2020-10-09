@@ -6,6 +6,7 @@ from datetime import timedelta
 from django.http import FileResponse
 from num2words import num2words
 from babel.dates import format_date
+import os
 
 
 from django.db.models import Q
@@ -219,6 +220,7 @@ class MakeKontrakt(View):
             file = open("Договор № {}.docx".format(order.order_number), 'rb')
 
             response = FileResponse(file)
+            os.remove("Договор № {}.docx".format(order.order_number))
             return response
         else:
             return redirect('login')

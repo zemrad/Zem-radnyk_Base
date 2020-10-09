@@ -4,10 +4,42 @@
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated and user.orderer.role != 'zamovnik' %}
-        {% for kadastr_number in kadastr_numbers %}
-            <p><a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number }}</a>
+
+            <p>
+            <table>
+                <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Кадастровый номер
+                    </th>
+                    <th>
+                        Резерв
+                    </th>
+                    <th>
+                        В работе
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for kadastr_number in kadastr_numbers %}
+                <tr>
+                    <th>
+                        <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                    </th>
+                    <th>
+                        {{ kadastr_number.reserv }}
+                    </th>
+                    <th>
+                        {{ kadastr_number.in_work }}
+                    </th>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
             </p>
-        {% endfor %}
+
     {% else %}
         У Вас немає прав для перегляду цієї сторінки :(
     {% endif %}

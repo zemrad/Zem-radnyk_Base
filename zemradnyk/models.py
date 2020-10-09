@@ -19,7 +19,13 @@ class Vipovilny(models.Model):
 
 
 class Kadastr_Number(models.Model):
+    CHOICES = (
+        ('✓', '✓'),
+        ('✕', '✕')
+    )
     kadastr_number = models.CharField(max_length=100, unique=True)
+    reserv = models.CharField(max_length=100, blank=True)
+    in_work = models.CharField(max_length=10, choices=CHOICES, default='✕')
 
     def __str__(self):
         return self.kadastr_number
@@ -56,8 +62,8 @@ class Order(models.Model):
     order_number = models.CharField(max_length=100, unique=True)
     order_date = models.DateField()
     pib = models.CharField(max_length=250)
-    contact = models.CharField(max_length=10)
-    location = models.CharField(max_length=250)
+    contact = models.CharField(max_length=10, blank=True, null=True)
+    location = models.CharField(max_length=250, blank=True, null=True)
     kadastr_number = models.CharField(max_length=300, blank=True, null=True)
     ipn = models.CharField(max_length=50)
     pasport = models.CharField(max_length=25)
