@@ -9,6 +9,9 @@
         <form action="" method="post" class="col-sm-5">
             {% csrf_token %}
             <p>Кадастровий номер ділянки: {{ form.kadastr_number }}</p>
+            <p>Резерв: {{ form.reserv }}</p>
+            <p>В роботі: {{ form.in_work }}</p>
+
 
             <button class="btn btn-primary">Добавити</button>
         </form>

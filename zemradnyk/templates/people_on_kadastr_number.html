@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% for person in people %}
-        <p>{{ person.pib }}</p>
+        <p><th scope="col"><a href="{% url 'order_edit' person.order_number %}" target="_blank">{{ person.pib }}</a></th></p>
         <p>{{ person.kadastr_number }}</p>
         <p>{{ person.orderer }}</p>
     {% endfor %}

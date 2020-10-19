@@ -7,6 +7,7 @@ from django.http import FileResponse
 from num2words import num2words
 from babel.dates import format_date
 import os
+from docxtpl import DocxTemplate
 
 
 from django.db.models import Q
@@ -190,9 +191,11 @@ class MakeKontrakt(View):
     def get(self, request, **kwargs):
         if request.user.is_authenticated:
             order = get_object_or_404(Order, order_number=kwargs['slug'])
-            from docxtpl import DocxTemplate
-            doc = DocxTemplate('static/text.docx')
-
+            import os
+            THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+            my_file = os.path.join(THIS_FOLDER, 'text.docx')
+            doc = DocxTemplate(my_file)
+            total_text = ''
             if order.total != None:
                 total_text = num2words(order.total, lang='uk')
 
@@ -204,7 +207,7 @@ class MakeKontrakt(View):
                     total_text += ' гривні 00 копійок'
                 else:
                     total_text += ' гривень 00 копійок'
-                total = float(order.total)
+
 
             pib = order.pib.split(" ")
             pib_small = ''
@@ -213,7 +216,7 @@ class MakeKontrakt(View):
             pib_small += pib[2]
 
             context = {'order_number': order.order_number, 'order_date': order.order_date.strftime('%d.%m.%Y'),
-                       'total': total, 'total_text': total_text, 'pib': order.pib, 'ipn': order.ipn,
+                       'total': order.total, 'total_text': total_text, 'pib': order.pib, 'ipn': order.ipn,
                        'contact': order.contact, 'pasport': order.pasport, 'pib_small': pib_small, 'rayon': order.rayon, 'rada': order.sovet}
             doc.render(context)
             doc.save("Договор № {}.docx".format(order.order_number))

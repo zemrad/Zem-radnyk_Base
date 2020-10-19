@@ -51,6 +51,13 @@ class Profile(models.Model):
     role = models.CharField(max_length=30, blank=True, null=True)
 
 
+class Doverenost(models.Model):
+    name = models.CharField(max_length=70, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Rayon(models.Model):
     name = models.CharField(max_length=250)
 
@@ -71,6 +78,7 @@ class Order(models.Model):
     sovet = models.CharField(max_length=150, blank=True, null=True)
     type_of_works = models.ForeignKey(TypeWork, on_delete=models.CASCADE, blank=True, null=True)
     orderer = models.ForeignKey(Orderer, on_delete=models.CASCADE, blank=True, null=True)
+    doverenost = models.ForeignKey(Doverenost, on_delete=models.CASCADE, blank=True, null=True)
     #geodeziya
     MARK_CHOICES = (
         ('✓', '✓'),

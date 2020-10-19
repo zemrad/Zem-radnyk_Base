@@ -19,6 +19,7 @@
             <th scope="col">Паспорт</th>
             <th scope="col">Тип роботи</th>
             <th scope="col">Замовник</th>
+            <th scope="col">Довіреність</th>
             <th scope="col">Наявність геодезії</th>
             <th scope="col">Дата геодезії</th>
             <th scope="col">Розробник</th>
@@ -68,6 +69,7 @@
                 <th scope="col">{{ order.pasport }}</th>
                 <th scope="col">{{ order.type_of_works }}</th>
                 <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.doverenost }}</th>
                 <th scope="col">{{ order.exist_mark }}</th>
                 <th scope="col">{{ order.date }}</th>
                 <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
@@ -161,6 +163,7 @@
             <th scope="col">Паспорт</th>
             <th scope="col">Тип роботи</th>
             <th scope="col">Замовник</th>
+            <th scope="col">Довіреність</th>
             <th scope="col">Наявність геодезії</th>
             <th scope="col">Дата геодезії</th>
             <th scope="col">Розробник</th>
@@ -207,6 +210,7 @@
                 <th scope="col">{{ order.pasport }}</th>
                 <th scope="col">{{ order.type_of_works }}</th>
                 <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.doverenost }}</th>
                 <th scope="col">{{ order.exist_mark }}</th>
                 <th scope="col">{{ order.date }}</th>
                 <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
@@ -256,6 +260,7 @@
             <th scope="col">Паспорт</th>
             <th scope="col">Тип роботи</th>
             <th scope="col">Замовник</th>
+            <th scope="col">Довіреність</th>
             <th scope="col">Наявність геодезії</th>
             <th scope="col">Дата геодезії</th>
             <th scope="col">Розробник</th>
@@ -291,6 +296,7 @@
                 <th scope="col">{{ order.pasport }}</th>
                 <th scope="col">{{ order.type_of_works }}</th>
                 <th scope="col">{{ order.orderer }}</th>
+                <th scope="col">{{ order.doverenost }}</th>
                 <th scope="col">{{ order.exist_mark }}</th>
                 <th scope="col">{{ order.date }}</th>
                 <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
@@ -329,6 +335,7 @@
             <th scope="col">Паспорт</th>
             <th scope="col">Тип роботи</th>
             <th scope="col">Замовник</th>
+            <th scope="col">Довіреність</th>
             <th scope="col">Розробник</th>
             <th scope="col">Дата відправки</th>
             <th scope="col">Очікувана дата отримання</th>
@@ -375,6 +382,7 @@
             <th scope="col">{{ order.pasport }}</th>
             <th scope="col">{{ order.type_of_works }}</th>
             <th scope="col">{{ order.orderer }}</th>
+            <th scope="col">{{ order.doverenost }}</th>
             <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
             <th scope="col">{{ order.sending_date }}</th>
             <th scope="col">{{ order.pre_response_date }}</th>
@@ -446,6 +454,7 @@
                 <th scope="col">Паспорт</th>
                 <th scope="col">Тип роботи</th>
                 <th scope="col">Замовник</th>
+                <th scope="col">Довіреність</th>
                 <th scope="col">Наявність геодезії</th>
                 <th scope="col">Дата геодезії</th>
                 <th scope="col">Дата отримання розробки</th>
@@ -478,6 +487,7 @@
                     <th scope="col">{{ order.pasport }}</th>
                     <th scope="col">{{ order.type_of_works }}</th>
                     <th scope="col">{{ order.orderer }}</th>
+                    <th scope="col">{{ order.doverenost }}</th>
                     <th scope="col">{{ order.exist_mark }}</th>
                     <th scope="col">{{ order.date }}</th>
                     <th scope="col">{{ order.first_date }}</th>

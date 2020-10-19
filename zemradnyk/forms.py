@@ -8,13 +8,13 @@ class DirectorForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ('order_number', 'order_date', 'pib', 'contact', 'location', 'kadastr_number', 'ipn', 'pasport', 'rayon', 'sovet',
+        fields = ['order_number', 'order_date', 'pib', 'contact', 'location', 'kadastr_number', 'ipn', 'pasport', 'rayon', 'sovet',
                   'type_of_works', 'orderer', 'exist_mark', 'date', 'sending_date', 'pre_response_date', 'response_date', 'developer',
                   'first_session_date', 'first_session_response_date', 'response_rada', 'oskargenya_1', 'dev_message_mov_zgoda',
                   'oskargenya_2', 'sending_date_zatverg', 'sending_response_date_zatverg', 'oskargenya_zatverg', 'register', 'register_ZD',
                   'vidpovidalny', 'first_date', 'akt_vigotovleno_date', 'akt_pidpisano_date', 'granichniy_complete_date',
                   'complite_date', 'pogodjenya', 'expertise', 'podonya_date', 'number_ZV', 'register', 'total', 'payed',
-                  'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days')
+                  'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days', 'doverenost' ]
 
         widgets = {
             'order_date': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
@@ -59,6 +59,7 @@ class DirectorForm(forms.ModelForm):
             'kadastr_number': forms.TextInput(attrs={'class': 'form-control'}),
             'order_number': forms.TextInput(attrs={'class': 'form-control'}),
             'note': forms.Textarea(attrs={'class': 'form-control'}),
+            'doverenost': forms.Select(attrs={'class': 'form-control'})
         }
         date_geodeziya = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
 
@@ -67,9 +68,11 @@ class KadastrNumberForm(forms.ModelForm):
 
     class Meta:
         model = Kadastr_Number
-        fields = ('kadastr_number',)
+        fields = ('kadastr_number', 'reserv', 'in_work')
         widgets = {
-            'kadastr_number': forms.TextInput(attrs={'class': 'form-control'})
+            'kadastr_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'reserv': forms.TextInput(attrs={'class': 'form-control'}),
+            'in_work': forms.Select(attrs={'class': 'form-control'})
         }
 
 
