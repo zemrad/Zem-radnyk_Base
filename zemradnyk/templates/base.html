@@ -3,51 +3,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static '/css/signin.css' %}">
 
     <!-- JS, Popper.js, and jQuery -->
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'img/logo.png' %}" width="50" height="50" alt="">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'img/logo.png' %}" width="50" height="50" alt="">
-        </a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        {% if user.is_authenticated %}
-            {% if user.orderer.role != 'zamovnik' %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ділянки
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'kadastr_numbers' %}">Показати всі ділянки</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'add_kadastr_numbers' %}">Додати ділянку</a>
-                </div>
-            </li>
-            {% endif %}
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Договора
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'order_list' %}">Показати всі договора</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'add_order' %}">Додати договір</a>
-                </div>
-            </li>
-        {% endif %}
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ділянки
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'kadastr_numbers' %}">Показати всі ділянки</a>
+                        {% if user.orderer.role != 'zamovnik' %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'add_kadastr_numbers' %}">Додати ділянку</a>
+                        {% endif %}
+                    </div>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Договора
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'order_list' %}">Показати всі договора</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'add_order' %}">Додати договір</a>
+                    </div>
+                </li>
+            {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -70,7 +76,7 @@
         {% if user.role != 'zamovnik' %}
             <form method="post" action="{% url 'search' %}" class="form-inline my-2 my-lg-0">
                 {% csrf_token %}
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Номер договору"
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Пошук"
                        aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Шукати</button>
             </form>
@@ -79,12 +85,10 @@
 </nav>
 
 
-<div class="container" style="padding: 0; margin: 0;">
+
 
     {% block content %}
     {% endblock content %}
-
-</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

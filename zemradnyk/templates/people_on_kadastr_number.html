@@ -1,8 +1,105 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if kadastr_number.razbivka %}
+<center><img src="{{ kadastr_number.razbivka.url }}" width="60%" height="auto" alt=""></center>
+{% else %}
+ <p>Розбивку не добавлено</p>
+{% endif %}
+<table class="table table-bordered">
+    <thead class="thead-dark ">
+    <tr>
+        <th>
+            Кадастровый номер
+        </th>
+        <th>
+            Область
+        </th>
+        <th>
+            Район
+        </th>
+        <th>
+            Резерв
+        </th>
+        <th>
+            В работе
+        </th>
+        <th>
+            Площа
+        </th>
+        <th>
+            Назва угідь
+        </th>
+        <th>
+            Сільска рада
+        </th>
+        <th>
+            Населений пункт
+        </th>
+        <th>
+            Обмеження
+        </th>
+        <th>
+            Рішення
+        </th>
+        <th>
+            Примітки
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>
+            {{ kadastr_number.kadastr_number }}
+        </th>
+
+        <th>
+            {{ kadastr_number.oblast }}
+        </th>
+        <th>
+            {{ kadastr_number.rayon }}
+        </th>
+        <th>
+            {{ kadastr_number.reserv }}
+        </th>
+
+        <th>
+            {{ kadastr_number.in_work }}
+        </th>
+        <th>
+            {{ kadastr_number.square }}
+        </th>
+        <th>
+            {{ kadastr_number.name_ugid }}
+        </th>
+        <th>
+            {{ kadastr_number.rada }}
+        </th>
+        <th>
+            {{ kadastr_number.city }}
+        </th>
+        <th>
+            {{ kadastr_number.obmegenya }}
+        </th>
+        <th>
+            {{ kadastr_number.rishenya }}
+        </th>
+        <th>
+            {{ kadastr_number.primitky }}
+        </th>
+        {% if user.orderer.role != 'zamovnik' %}
+        <th>
+            <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
+        </th>
+        {% else %}
+        {% endif %}
+    </tr>
+    </tbody>
+</table>
     {% for person in people %}
         <p><th scope="col"><a href="{% url 'order_edit' person.order_number %}" target="_blank">{{ person.pib }}</a></th></p>
         <p>{{ person.kadastr_number }}</p>
+        <p>{{ person.number_of_location}}</p>
         <p>{{ person.orderer }}</p>
     {% endfor %}
 

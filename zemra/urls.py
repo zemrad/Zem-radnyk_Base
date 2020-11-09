@@ -18,6 +18,8 @@ from django.urls import path
 from django.urls import include
 from django.contrib.auth import views
 from zemradnyk.forms import UserLoginForm
+from django.conf.urls.static import static
+from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,8 @@ urlpatterns = [
     path('accounts/login/', views.LoginView.as_view(authentication_form=UserLoginForm), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 #template_name="registration/login.html", authentication_form=UserLoginForm

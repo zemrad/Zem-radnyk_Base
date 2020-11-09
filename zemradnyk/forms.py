@@ -14,7 +14,10 @@ class DirectorForm(forms.ModelForm):
                   'oskargenya_2', 'sending_date_zatverg', 'sending_response_date_zatverg', 'oskargenya_zatverg', 'register', 'register_ZD',
                   'vidpovidalny', 'first_date', 'akt_vigotovleno_date', 'akt_pidpisano_date', 'granichniy_complete_date',
                   'complite_date', 'pogodjenya', 'expertise', 'podonya_date', 'number_ZV', 'register', 'total', 'payed',
-                  'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days', 'doverenost' ]
+                  'note', 'sending_response_date_zatverg_plus_14_days', 'first_session_response_date_plus_30_days', 'doverenost',
+                  'first_payment', 'second_payment', 'third_payment', 'number_of_location', 'documents']
+
+
 
         widgets = {
             'order_date': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
@@ -59,7 +62,12 @@ class DirectorForm(forms.ModelForm):
             'kadastr_number': forms.TextInput(attrs={'class': 'form-control'}),
             'order_number': forms.TextInput(attrs={'class': 'form-control'}),
             'note': forms.Textarea(attrs={'class': 'form-control'}),
-            'doverenost': forms.Select(attrs={'class': 'form-control'})
+            'doverenost': forms.Select(attrs={'class': 'form-control'}),
+            'first_payment': forms.TextInput(attrs={'class': 'form-control'}),
+            'second_payment': forms.TextInput(attrs={'class': 'form-control'}),
+            'third_payment': forms.TextInput(attrs={'class': 'form-control'}),
+            'number_of_location': forms.TextInput(attrs={'class': 'form-control'})
+
         }
         date_geodeziya = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
 
@@ -68,11 +76,21 @@ class KadastrNumberForm(forms.ModelForm):
 
     class Meta:
         model = Kadastr_Number
-        fields = ('kadastr_number', 'reserv', 'in_work')
+        fields = ('kadastr_number', 'reserv', 'oblast', 'rayon', 'in_work', 'square', 'name_ugid', 'rada', 'city', 'obmegenya', 'rishenya', 'primitky', 'razbivka', 'to_razbivka', 'vitag')
         widgets = {
             'kadastr_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'reserv': forms.TextInput(attrs={'class': 'form-control'}),
-            'in_work': forms.Select(attrs={'class': 'form-control'})
+            'reserv': forms.Select(attrs={'class': 'form-control'}),
+            'oblast': forms.Select(attrs={'class': 'form-control'}),
+            'rayon': forms.Select(attrs={'class': 'form-control'}),
+            'in_work': forms.Select(attrs={'class': 'form-control'}),
+            'square': forms.TextInput(attrs={'class': 'form-control'}),
+            'name_ugid': forms.TextInput(attrs={'class': 'form-control'}),
+            'rada': forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'obmegenya': forms.TextInput(attrs={'class': 'form-control'}),
+            'rishenya': forms.TextInput(attrs={'class': 'form-control'}),
+            'primitky': forms.TextInput(attrs={'class': 'form-control'}),
+
         }
 
 

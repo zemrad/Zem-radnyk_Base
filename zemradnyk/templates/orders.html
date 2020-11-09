@@ -24,6 +24,9 @@
             <th scope="col">Дата геодезії</th>
             <th scope="col">Розробник</th>
             <th scope="col">Загальна сума</th>
+            <th scope="col">Перший платіж</th>
+            <th scope="col">Другий платіж</th>
+            <th scope="col">Третій платіж</th>
             <th scope="col">Сплаченно</th>
             <th scope="col">Дата відправки</th>
             <th scope="col">Очікувана дата отримання</th>
@@ -68,12 +71,15 @@
                 <th scope="col">{{ order.ipn }}</th>
                 <th scope="col">{{ order.pasport }}</th>
                 <th scope="col">{{ order.type_of_works }}</th>
-                <th scope="col">{{ order.orderer }}</th>
+                <th scope="col"><a href="{% url 'zamovnik' order.orderer %}">{{ order.orderer }}</a></th>
                 <th scope="col">{{ order.doverenost }}</th>
                 <th scope="col">{{ order.exist_mark }}</th>
                 <th scope="col">{{ order.date }}</th>
                 <th scope="col"><a href="{% url 'rozrobnik' order.developer %}">{{ order.developer }}</a></th>
                 <th scope="col">{{ order.total }}</th>
+                <th scope="col">{{ order.first_payment }}</th>
+                <th scope="col">{{ order.second_payment }}</th>
+                <th scope="col">{{ order.third_payment }}</th>
                 <th scope="col">{{ order.payed }}</th>
                 <th scope="col">{{ order.sending_date }}</th>
                 <th scope="col">{{ order.pre_response_date }}</th>

@@ -4,14 +4,33 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container">
+    <div class="container" style="padding: 0; margin: 0;">
     <div>
-        <form action="" method="post" class="col-sm-5">
+        <form action="" method="post" class="col-sm-5" enctype="multipart/form-data">
             {% csrf_token %}
-            <p>Кадастровий номер ділянки: {{ form.kadastr_number }}</p>
-            <p>Резерв: {{ form.reserv }}</p>
-            <p>В роботі: {{ form.in_work }}</p>
 
+            {% if user.orderer.role == 'zamovnik' %}
+                <div style="display: none;">{{ form.as_p }}</div>
+
+                <p>На разбивку: {{ form.to_razbivka }}</p>
+                <p>В роботі: {{ form.in_work }}</p>
+            {% else %}
+                <p>Кадастровий номер ділянки: {{ form.kadastr_number }}</p>
+                <p>Область: {{ form.oblast }}</p>
+                <p>Район: {{ form.rayon }}</p>
+                <p>Резерв: {{ form.reserv }}</p>
+                <p>Замовити витяг: {{ form.vitag }}</p>
+                <p>На разбивку: {{ form.to_razbivka }}</p>
+                <p>В роботі: {{ form.in_work }}</p>
+                <p>Площа: {{ form.square }}</p>
+                <p>Назва угідь: {{ form.name_ugid }}</p>
+                <p>Сільська рада: {{ form.rada }}</p>
+                <p>Населений пунк: {{ form.city }}</p>
+                <p>Обмеження: {{ form.obmegenya }}</p>
+                <p>Рішення: {{ form.rishenya }}</p>
+                <p>Примітки: {{ form.primitky }}</p>
+                <p>Разбивка: {{ form.razbivka }}</p>
+            {% endif %}
 
             <button class="btn btn-primary">Добавити</button>
         </form>

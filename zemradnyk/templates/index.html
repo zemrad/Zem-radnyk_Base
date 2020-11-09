@@ -1,16 +1,99 @@
 {% extends 'base.html' %}
-{% block content %}
-    {% block title %}
-
+{% block title %}
+        База
     {% endblock %}
-    {% if user.is_authenticated %}
-        <div>
-            <p><a href="{% url 'add_order' %}">Добавити договір</a></p>
-        </div>
-        <div>
-            <p><a href="{% url 'order_list' %}">Показати всі договора</a></p>
-        </div>
+{% block content %}
 
+    {% if user.is_authenticated %}
+
+        <div class="row" style="margin-top: 10px;">
+
+            <div class="col-lg-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Добавити договір</h5>
+                        <p class="card-text">Укласти договір з клієнтом, та відправити договір на друк.</p>
+                        <a href="{% url 'add_order' %}" class="btn btn-primary">Добавити договір</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Показати всі договора</h5>
+                        <p class="card-text">Список всієї інформації щодо договорів.</p>
+                        <a href="{% url 'order_list' %}" class="btn btn-primary">Показати всі договора</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Показати всі ділянки</h5>
+                        <p class="card-text">Вся інформація, яка доступна про земельні ділянки.</p>
+                        <a class="btn btn-primary" href="{% url 'kadastr_numbers' %}">Показати всі ділянки</a>
+                    </div>
+                </div>
+            </div>
+            {% if user.orderer.role == 'zamovnik' %}
+                <div class="col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Додати ділянку</h5>
+
+                            <p class="card-text">Додати ділянку та всю необхідну інформацію щодо цієї ділянки.</p>
+                            <a href="{% url 'add_kadastr_numbers' %}" class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Додати ділянку</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Додати ділянку</h5>
+                            <p class="card-text">Додати ділянку та всю необхідну інформацію щодо цієї ділянки.</p>
+                            <a class="btn btn-primary" href="{% url 'add_kadastr_numbers' %}">Додати
+                                ділянку</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if user.orderer.role != 'zamovnik' %}
+                <div class="col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Області</h5>
+
+                            <p class="card-text">Ділянки по областям</p>
+                            <a href="{% url 'oblast' %}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Витяги</h5>
+
+                            <p class="card-text">Ділянки що потребують витяги</p>
+                            <a href="{% url 'vitag' %}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Разбивка</h5>
+
+                            <p class="card-text">Ділянки що потребують розбивку</p>
+                            <a href="{% url 'razbivka' %}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
     {% else %}
         Ви не автерезовані
         <a href="{% url 'login' %}">Увійти</a>

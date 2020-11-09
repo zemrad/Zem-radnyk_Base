@@ -3,9 +3,9 @@
     Добавити договір
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container" style="padding: 0; margin: 0;">
             <div class="col-6">
-            <form action="" method="post">
+            <form action="" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 {% if user.is_authenticated and user.orderer.role == 'director' %}
                     <div class="form-row">
@@ -31,12 +31,16 @@
                     <p>Район: {{ form.rayon }}</p>
                     <p>Рада: {{ form.sovet }}</p>
                     <p>Тип робіт: {{ form.type_of_works }}</p>
+                    <p>Номер на ділянці: {{ form.number_of_location }}</p>
                     <p>Замовник: {{ form.orderer }}</p>
                     <p>Довіреність: {{ form.doverenost }}</p>
                     <p>Наявність геодезії: {{ form.exist_mark }}</p>
                     <p>Дата геодезії: {{ form.date }}</p>
                     <p>Розробник: {{ form.developer }}</p>
                     <p>Загальна сума робіт: {{ form.total }}</p>
+                    <p>Перший платіж: {{ form.first_payment }}</p>
+                    <p>Другий платіж: {{ form.second_payment }}</p>
+                    <p>Третій платіж: {{ form.third_payment }}</p>
                     <p>Фактично сплачено: {{ form.payed }}</p>
                     <p>Дата відправлення запиту: {{ form.sending_date }}</p>
                     <p>Очікувана дата отримання: {{ form.pre_response_date }}</p>
@@ -62,6 +66,7 @@
                     <p>Дата отримання затвердження: {{ form.sending_response_date_zatverg }}</p>
                     <p>Оскардження затвердження: {{ form.oskargenya_zatverg }}</p>
                     <p>Реєстрація права властності: {{ form.register }}</p>
+                    <p>Скан документів (Одним файлом): {{ form.documents }}</p>
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'law' %}
@@ -215,7 +220,9 @@
                     <p>Район: {{ form.rayon }}</p>
                     <p>Рада: {{ form.sovet }}</p>
                     <p>Тип робіт: {{ form.type_of_works }}</p>
+                    <p>Номер на ділянці: {{ form.number_of_location }}</p>
                     <p>Загальна сума робіт: {{ form.total }}</p>
+                    <p>Скан документів (Одним файлом): {{ form.documents }}</p>
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% else %}

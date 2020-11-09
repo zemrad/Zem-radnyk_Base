@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Orderer, Profile, TypeWork, Vipovilny, Rayon, Kadastr_Number, Rozrobnik, Doverenost
+from .models import Order, Orderer, Profile, TypeWork, Vipovilny, Rayon, Kadastr_Number, Rozrobnik, Doverenost, Oblast
 
 # Register your models here.
 
@@ -12,3 +12,4 @@ admin.site.register(Rayon)
 admin.site.register(Rozrobnik)
 admin.site.register(Kadastr_Number)
 admin.site.register(Doverenost)
+admin.site.register(Oblast)

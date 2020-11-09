@@ -18,14 +18,43 @@ class Vipovilny(models.Model):
         return self.name
 
 
+class Oblast(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Rayon(models.Model):
+    name = models.CharField(max_length=250)
+    oblast = models.ForeignKey(Oblast, on_delete=models.CASCADE, related_name='rayon', default=1)
+
+    def __str__(self):
+        return self.name
+
+
 class Kadastr_Number(models.Model):
     CHOICES = (
         ('✓', '✓'),
         ('✕', '✕')
     )
     kadastr_number = models.CharField(max_length=100, unique=True)
-    reserv = models.CharField(max_length=100, blank=True)
+    reserv = models.ForeignKey(Orderer, on_delete=models.CASCADE, blank=True, null=True)
+    oblast = models.ForeignKey(Oblast, on_delete=models.CASCADE, blank=True, null=True)
+    rayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, blank=True, null=True)
     in_work = models.CharField(max_length=10, choices=CHOICES, default='✕')
+    vitag = models.BooleanField(default=False)
+    to_razbivka = models.BooleanField(default=False)
+    square = models.CharField(max_length=15, blank=True, null=True)
+    name_ugid = models.CharField(max_length=50, blank=True, null=True)
+    rada = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    obmegenya = models.CharField(max_length=50, blank=True, null=True)
+    rishenya = models.CharField(max_length=50, blank=True, null=True)
+    primitky = models.CharField(max_length=50, blank=True, null=True)
+    razbivka = models.FileField(upload_to='location/', blank=True, null=True)
+
+
 
     def __str__(self):
         return self.kadastr_number
@@ -58,11 +87,6 @@ class Doverenost(models.Model):
         return self.name
 
 
-class Rayon(models.Model):
-    name = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.name
 
 
 class Order(models.Model):
@@ -78,6 +102,7 @@ class Order(models.Model):
     sovet = models.CharField(max_length=150, blank=True, null=True)
     type_of_works = models.ForeignKey(TypeWork, on_delete=models.CASCADE, blank=True, null=True)
     orderer = models.ForeignKey(Orderer, on_delete=models.CASCADE, blank=True, null=True)
+    number_of_location = models.CharField(max_length=5, default=0, blank=True, null=True)
     doverenost = models.ForeignKey(Doverenost, on_delete=models.CASCADE, blank=True, null=True)
     #geodeziya
     MARK_CHOICES = (
@@ -125,6 +150,13 @@ class Order(models.Model):
     #buchalter
     total = models.CharField(max_length=50, default='', blank=True, null=True)
     payed = models.CharField(max_length=50, default='', blank=True, null=True)
+    first_payment = models.CharField(max_length=50, default='', blank=True, null=True)
+    second_payment = models.CharField(max_length=50, default='', blank=True, null=True)
+    third_payment = models.CharField(max_length=50, default='', blank=True, null=True)
+
+    documents = models.FileField(upload_to='documents', blank=True, null=True)
+
+
     #note
     note = models.TextField(blank=True, null=True)
 

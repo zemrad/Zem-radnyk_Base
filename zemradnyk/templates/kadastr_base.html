@@ -3,14 +3,136 @@
     База кадастровых номеров
 {% endblock %}
 {% block content %}
-    {% if user.is_authenticated and user.orderer.role != 'zamovnik' %}
+    {% if user.is_authenticated %}
+        <p>
+        <table class="table table-bordered">
+            {% if user.orderer.role == 'director' %}
 
-            <p>
-            <table>
-                <thead class="thead-dark">
+                <thead class="thead-dark ">
                 <tr>
                     <th>
                         Кадастровый номер
+                    </th>
+                    <th>
+                        На витяг
+                    </th>
+                    <th>
+                        На разбивку
+                    </th>
+                    <th>
+                        Область
+                    </th>
+                    <th>
+                        Район
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Резерв
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% for orderer in orderers %}
+                                    <a class="dropdown-item" href="{% url 'orderers' orderer.name %}">{{ orderer.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        В работе
+                    </th>
+                    <th>
+                        Площа
+                    </th>
+                    <th>
+                        Назва угідь
+                    </th>
+                    <th>
+                        Сільска рада
+                    </th>
+                    <th>
+                        Населений пункт
+                    </th>
+                    <th>
+                        Обмеження
+                    </th>
+                    <th>
+                        Рішення
+                    </th>
+                    <th>
+                        Примітки
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for kadastr_number in kadastr_numbers %}
+                    <tr>
+                        <th>
+                            <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                        </th>
+                        <th>
+                            {% if kadastr_number.vitag %}
+                                ✓
+                            {% else %}
+                                ✕
+                            {% endif %}
+                        </th>
+                        <th>
+                            {% if kadastr_number.to_razbivka %}
+                                ✓
+                            {% else %}
+                                ✕
+                            {% endif %}
+                        </th>
+                        <th>
+                            {{ kadastr_number.oblast }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.rayon }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.reserv }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.in_work }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.square }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.name_ugid }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.rada }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.city }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.obmegenya }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.rishenya }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.primitky }}
+                        </th>
+                        <th>
+                            <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
+                        </th>
+
+                    </tr>
+                {% endfor %}
+                {% elif user.orderer.role == 'zamovnik' %}
+
+                <thead class="thead-dark ">
+                <tr>
+                    <th>
+                        Кадастровый номер
+                    </th>
+                    <th>
+                        Область
                     </th>
                     <th>
                         Резерв
@@ -18,28 +140,167 @@
                     <th>
                         В работе
                     </th>
+                    <th>
+                        Площа
+                    </th>
+                    <th>
+                        Назва угідь
+                    </th>
+                    <th>
+                        Сільска рада
+                    </th>
+                    <th>
+                        Населений пункт
+                    </th>
+                    <th>
+                        Обмеження
+                    </th>
+                    <th>
+                        Рішення
+                    </th>
+                    <th>
+                        Примітки
+                    </th>
 
                 </tr>
                 </thead>
                 <tbody>
                 {% for kadastr_number in kadastr_numbers %}
+                    {% if kadastr_number.reserv == user.orderer.orderer %}
+
+                        <tr>
+                            <th>
+                                <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                            </th>
+
+                            <th>
+                                {{ kadastr_number.oblast }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.reserv }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.in_work }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.square }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.name_ugid }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.rada }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.city }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.obmegenya }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.rishenya }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.primitky }}
+                            </th>
+                            <th>
+                                <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
+                            </th>
+
+                        </tr>
+
+                    {% endif %}
+                {% endfor %}
+                {% elif user.orderer.role == 'develop' %}
+
+                <thead class="thead-dark ">
                 <tr>
                     <th>
-                        <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                        Кадастровый номер
                     </th>
                     <th>
-                        {{ kadastr_number.reserv }}
+                        Область
                     </th>
                     <th>
-                        {{ kadastr_number.in_work }}
+                        Резерв
+                    </th>
+                    <th>
+                        В работе
+                    </th>
+                    <th>
+                        Площа
+                    </th>
+                    <th>
+                        Назва угідь
+                    </th>
+                    <th>
+                        Сільска рада
+                    </th>
+                    <th>
+                        Населений пункт
+                    </th>
+                    <th>
+                        Обмеження
+                    </th>
+                    <th>
+                        Рішення
+                    </th>
+                    <th>
+                        Примітки
                     </th>
 
                 </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            </p>
+                </thead>
+                <tbody>
+                {% for kadastr_number in kadastr_numbers %}
+                    {% if kadastr_number.to_razbivka %}
+                        <tr>
+                            <th>
+                                <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                            </th>
+                            <th>
+                                {{ kadastr_number.oblast }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.reserv }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.in_work }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.square }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.name_ugid }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.rada }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.city }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.obmegenya }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.rishenya }}
+                            </th>
+                            <th>
+                                {{ kadastr_number.primitky }}
+                            </th>
+                            <th>
+                                <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
+                            </th>
 
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+            {% endif %}
+
+            </tbody>
+        </table>
+        </p>
     {% else %}
         У Вас немає прав для перегляду цієї сторінки :(
     {% endif %}
