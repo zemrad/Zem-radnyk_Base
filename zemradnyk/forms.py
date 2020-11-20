@@ -76,7 +76,7 @@ class KadastrNumberForm(forms.ModelForm):
 
     class Meta:
         model = Kadastr_Number
-        fields = ('kadastr_number', 'reserv', 'oblast', 'rayon', 'in_work', 'square', 'name_ugid', 'rada', 'city', 'obmegenya', 'rishenya', 'primitky', 'razbivka', 'to_razbivka', 'vitag')
+        fields = ('kadastr_number', 'reserv', 'oblast', 'rayon', 'in_work', 'square', 'name_ugid', 'rada', 'city', 'obmegenya', 'rishenya', 'primitky', 'razbivka', 'to_razbivka', 'vitag', 'extorialka', 'expertiza', 'ispolnitel')
         widgets = {
             'kadastr_number': forms.TextInput(attrs={'class': 'form-control'}),
             'reserv': forms.Select(attrs={'class': 'form-control'}),
@@ -90,6 +90,9 @@ class KadastrNumberForm(forms.ModelForm):
             'obmegenya': forms.TextInput(attrs={'class': 'form-control'}),
             'rishenya': forms.TextInput(attrs={'class': 'form-control'}),
             'primitky': forms.TextInput(attrs={'class': 'form-control'}),
+            'extorialka': forms.TextInput(attrs={'class': 'form-control'}),
+            'expertiza': forms.TextInput(attrs={'class': 'form-control'}),
+            'ispolnitel': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
 

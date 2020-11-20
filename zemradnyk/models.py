@@ -1,8 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
+RESPONSE_RADA_CHOISE = (
+    ('Дозвіл', 'Дозвіл'),
+    ('Не розглянуто протягом 1 міс.', 'Не розглянуто протягом 1 міс.'),
+    ('Відмова', 'Відмова')
+)
 
 class Orderer(models.Model):
     name = models.CharField(max_length=50)
@@ -33,6 +39,14 @@ class Rayon(models.Model):
         return self.name
 
 
+class Otg(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Kadastr_Number(models.Model):
     CHOICES = (
         ('✓', '✓'),
@@ -54,7 +68,20 @@ class Kadastr_Number(models.Model):
     primitky = models.CharField(max_length=50, blank=True, null=True)
     razbivka = models.FileField(upload_to='location/', blank=True, null=True)
 
+    who_added = models.CharField(max_length=50, blank=True, null=True)
+    who_edit = models.TextField(default=' ', blank=True, null=True)
 
+    created_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
+
+    #new logic
+
+    extorialka = models.TextField(blank=True, null=True)
+    expertiza = models.CharField(max_length=50, blank=True, null=True)
+    zashla = models.CharField(max_length=50, blank=True, null=True)
+    ispolnitel = models.CharField(max_length=50, blank=True, null=True)
+
+
+    otg = models.ForeignKey(Otg, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.kadastr_number
@@ -115,11 +142,7 @@ class Order(models.Model):
     #rozrobnyk
     developer = models.ForeignKey(Rozrobnik, on_delete=models.CASCADE, related_name='developer', blank=True, null=True)
     #law
-    RESPONSE_RADA_CHOISE = (
-        ('Дозвіл', 'Дозвіл'),
-        ('Не розглянуто протягом 1 міс.', 'Не розглянуто протягом 1 міс.'),
-        ('Відмова', 'Відмова')
-    )
+
     sending_date = models.DateField(blank=True, null=True)
     pre_response_date = models.DateField(blank=True, null=True)
     response_date = models.DateField(blank=True, null=True)
@@ -155,6 +178,11 @@ class Order(models.Model):
     third_payment = models.CharField(max_length=50, default='', blank=True, null=True)
 
     documents = models.FileField(upload_to='documents', blank=True, null=True)
+
+    who_added = models.CharField(max_length=50, blank=True, null=True)
+    who_edit = models.TextField(default=' ', blank=True, null=True)
+
+    created_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
 
     #note

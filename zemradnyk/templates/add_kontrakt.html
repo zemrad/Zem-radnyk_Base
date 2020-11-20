@@ -8,19 +8,7 @@
             <form action="" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 {% if user.is_authenticated and user.orderer.role == 'director' %}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <p>Номер договора:</p> {{ form.order_number }}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <p>Код</p>
-                            <select name="code_of_kadastr_number" class="form-control">
-                                <option></option>
-                                <option>I</option>
-                                <option>K</option>
-                            </select>
-                        </div>
-                    </div>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -70,19 +58,7 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'law' %}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <p>Номер договора:</p> {{ form.order_number }}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <p>Код</p>
-                            <select name="code_of_kadastr_number" class="form-control">
-                                <option></option>
-                                <option>I</option>
-                                <option>K</option>
-                            </select>
-                        </div>
-                    </div>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -110,19 +86,7 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'manager' %}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <p>Номер договора:</p> {{ form.order_number }}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <p>Код</p>
-                            <select name="code_of_kadastr_number" class="form-control">
-                                <option></option>
-                                <option>I</option>
-                                <option>K</option>
-                            </select>
-                        </div>
-                    </div>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -139,19 +103,7 @@
                     <p>Фактично сплачено: {{ form.payed }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'develop' %}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <p>Номер договора:</p> {{ form.order_number }}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <p>Код</p>
-                            <select name="code_of_kadastr_number" class="form-control">
-                                <option></option>
-                                <option>I</option>
-                                <option>K</option>
-                            </select>
-                        </div>
-                    </div>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -177,12 +129,7 @@
                     <p>Зареєстровано(Реєстрація ЗД): {{ form.register_ZD }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'buchalter' %}
-                    <p>Номер договора: {{ form.order_number }}
-                        <select name="code_of_kadastr_number">
-                            <option></option>
-                            <option>I</option>
-                            <option>K</option>
-                        </select></p>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>
@@ -197,19 +144,7 @@
                     <p>Примітки: {{ form.note }}</p>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 {% elif user.is_authenticated and user.orderer.role == 'zamovnik' %}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <p>Номер договора:</p> {{ form.order_number }}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <p>Код</p>
-                            <select name="code_of_kadastr_number" class="form-control">
-                                <option></option>
-                                <option>I</option>
-                                <option>K</option>
-                            </select>
-                        </div>
-                    </div>
+                    <p>Номер договора: {{ form.order_number }}</p>
                     <p>Дата договора: {{ form.order_date }}</p>
                     <p>П.І.Б: {{ form.pib }}</p>
                     <p>Контакти: {{ form.contact }}</p>

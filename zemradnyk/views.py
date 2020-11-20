@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, FormView
-from .models import Order, Profile, Kadastr_Number, Oblast, Orderer
+from .models import Order, Profile, Kadastr_Number, Oblast, Orderer, Rayon, Otg
 from .forms import DirectorForm, KadastrNumberForm
 from datetime import timedelta
 from django.http import FileResponse
@@ -16,6 +16,19 @@ from django.db.models import Q
 
 def get_orderer():
     return Orderer.objects.all()
+
+
+def get_rayon():
+    return Rayon.objects.all()
+
+
+def get_oblast():
+    return Oblast.objects.all()
+
+
+def get_otg():
+    return Otg.objects.all()
+
 
 class IndexView(View):
     def get(self, request):
@@ -87,8 +100,10 @@ class DirectorFormView(View):
             if (order.sending_response_date_zatverg != None):
                 order.sending_response_date_zatverg_plus_14_days = order.sending_response_date_zatverg + timedelta(
                     days=14)
+            order.who_added = request.user.username
             order.save()
-        return redirect('detail', order.order_number)
+
+        return redirect('detail', request.POST['order_number'])
 
 
 class DirectorEditView(View):
@@ -132,7 +147,7 @@ class DirectorEditView(View):
             summa += i
 
         order.payed = summa
-
+        order.who_edit += request.user.username + ', '
         com = form.save()
 
         return redirect('detail', order.order_number)
@@ -148,7 +163,10 @@ class KadastrNumberView(ListView):
     context_object_name = 'kadastr_numbers'
     template_name = 'kadastr_base.html'
     queryset = Kadastr_Number.objects.order_by('-id')
-    extra_context = {'orderers': get_orderer()}
+    extra_context = {'orderers': get_orderer(),
+                     'rayons': get_rayon(),
+                     'regions': get_oblast(),
+                     'otgs': get_otg()}
 
 
 
@@ -219,7 +237,10 @@ class AddKadastrNumber(View):
     def post(self, request):
         form = KadastrNumberForm(request.POST, request.FILES)
         if form.is_valid():
-            kadastr_number_from_form = form.save()
+
+            kadastr_number_from_form = form.save(commit=False)
+            kadastr_number_from_form.who_added = request.user.username
+            kadastr_number_from_form.save()
         return redirect('kadastr_numbers')
 
 class EditKadastrNumber(View):
@@ -237,7 +258,9 @@ class EditKadastrNumber(View):
         kadastr_number = get_object_or_404(Kadastr_Number, kadastr_number=kwargs['slug'])
         form = KadastrNumberForm(request.POST, request.FILES, instance=kadastr_number)
         if form.is_valid():
-            kadastr_number_from_form = form.save()
+            kadastr_number_from_form = form.save(commit=False)
+            kadastr_number_from_form.who_edit += request.user.username + ', '
+            kadastr_number_from_form.save()
         return redirect('kadastr_numbers')
 
 
@@ -294,22 +317,101 @@ class RayonInOblast(View):
 
     def get(self, request, *args, **kwargs):
         kadastr_numbers = Kadastr_Number.objects.filter(rayon__name=kwargs['slug'])
-        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers, 'orderers': get_orderer()})
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
 
 
 class VitagView(View):
      def get(self, request, *args, **kwargs):
          kadastr_numbers = Kadastr_Number.objects.filter(vitag=True)
-         return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers, 'orderers': get_orderer()})
+         return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
 
 
 class RazbivkaView(View):
     def get(self, request, *args, **kwargs):
         kadastr_numbers = Kadastr_Number.objects.filter(to_razbivka=True)
-        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers, 'orderers': get_orderer()})
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
 
 
 class KadastrOrderersView(View):
     def get(self, request, *args, **kwargs):
         kadastr_numbers = Kadastr_Number.objects.filter(reserv__name=kwargs['slug'])
-        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers, 'orderers': get_orderer()})
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
+
+
+class KadastrRayonView(View):
+    def get(self, request, *args, **kwargs):
+        kadastr_numbers = Kadastr_Number.objects.filter(rayon__name=kwargs['slug'])
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
+
+
+class VRobotiView(View):
+    def get(self, request, *args, **kwargs):
+        kadastr_numbers = Kadastr_Number.objects.filter(in_work=kwargs['slug'])
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
+
+
+class KadastrOblastView(View):
+    def get(self, request, *args, **kwargs):
+        kadastr_numbers = Kadastr_Number.objects.filter(oblast__name=kwargs['slug'])
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
+
+class KadastrOtgView(View):
+    def get(self, request, *args, **kwargs):
+        kadastr_numbers = Kadastr_Number.objects.filter(otg__name=kwargs['slug'])
+        return render(request, 'kadastr_base.html', {'kadastr_numbers': kadastr_numbers,
+                                                     'orderers': get_orderer(),
+                                                     'rayons': get_rayon(),
+                                                     'regions': get_oblast(),
+                                                     'otgs': get_otg()})
+
+
+class KNSearchView(View):
+    def post(self, request):
+        search = request.POST['search']
+        return redirect('knsearch_result', search)
+
+
+class KNSearchResultView(View):
+    def get(self, request, slug):
+        if request.user.is_authenticated:
+
+            people = Order.objects.filter(kadastr_number=slug).order_by('number_of_location')
+            kadastr_number = get_object_or_404(Kadastr_Number, kadastr_number=slug)
+            return render(request, 'people_on_kadastr_number.html',
+                          context={'people': people, 'kadastr_number': kadastr_number})
+        else:
+            return redirect('login')
+
+
+
+
+
+

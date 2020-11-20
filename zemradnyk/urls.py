@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import IndexView, SearchView, SearchResultView, DirectorFormView, DirectorView, DirectorEditView,\
     KadastrNumberView, PeopleOnCadastrNumber, AddKadastrNumber, PeopleOnRayon, PeopleRozrobnik, MakeKontrakt,\
-    OrderDetail, EditKadastrNumber, PeopleZamovnik, OblastView, RayonInOblast, VitagView, RazbivkaView, KadastrOrderersView
+    OrderDetail, EditKadastrNumber, PeopleZamovnik, OblastView, RayonInOblast, VitagView, RazbivkaView, KadastrOrderersView, \
+    KadastrRayonView, VRobotiView, KadastrOblastView, KadastrOtgView, KNSearchView, KNSearchResultView
 
 
 urlpatterns = [
@@ -24,6 +25,13 @@ urlpatterns = [
     path('oblast/<slug>', RayonInOblast.as_view(), name='rayon_in_oblast'),
     path('vitag', VitagView.as_view(), name='vitag'),
     path('razbivka', RazbivkaView.as_view(), name='razbivka'),
-    path('orderers/<slug>', KadastrOrderersView.as_view(), name='orderers')
+    path('kadastr_numbers/orderers/<slug>', KadastrOrderersView.as_view(), name='orderers'),
+    path('kadastr_numbers/rayons/<slug>', KadastrRayonView.as_view(), name='rayons'),
+    path('kadastr_numbers/in-work/<slug>', VRobotiView.as_view(), name='in_work'),
+    path('kadastr_numbers/oblast/<slug>', KadastrOblastView.as_view(), name='kn_oblast'),
+    path('kadastr_numbers/otg/<slug>', KadastrOtgView.as_view(), name='otg'),
+    path('knsearch', KNSearchView.as_view(), name='knsearch'),
+    path('knsearch_result/<slug>', KNSearchResultView.as_view(), name='knsearch_result'),
+
 
 ]

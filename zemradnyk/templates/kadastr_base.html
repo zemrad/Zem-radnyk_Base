@@ -5,11 +5,22 @@
 {% block content %}
     {% if user.is_authenticated %}
         <p>
+        <p>
+        <form method="post" action="{% url 'knsearch' %}" class="form-inline my-2 my-lg-0">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Пошук"
+                   aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Шукати</button>
+        </form>
+        </p>
         <table class="table table-bordered">
             {% if user.orderer.role == 'director' %}
 
                 <thead class="thead-dark ">
                 <tr>
+                    <th>
+                        #
+                    </th>
                     <th>
                         Кадастровый номер
                     </th>
@@ -20,11 +31,48 @@
                         На разбивку
                     </th>
                     <th>
-                        Область
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Область
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% for oblast in regions %}
+                                    <a class="dropdown-item"
+                                       href="{% url 'kn_oblast' oblast.name %}">{{ oblast.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </th>
                     <th>
-                        Район
+
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Район
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% for rayon in rayons %}
+                                    <a class="dropdown-item" href="{% url 'rayons' rayon %}">{{ rayon }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </th>
+
+                    <th>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Отг
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% for otg in otgs %}
+                                    <a class="dropdown-item" href="{% url 'otg' otg.name %}">{{ otg.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </th>
+
                     <th>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -33,13 +81,23 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 {% for orderer in orderers %}
-                                    <a class="dropdown-item" href="{% url 'orderers' orderer.name %}">{{ orderer.name }}</a>
+                                    <a class="dropdown-item"
+                                       href="{% url 'orderers' orderer.name %}">{{ orderer.name }}</a>
                                 {% endfor %}
                             </div>
                         </div>
                     </th>
                     <th>
-                        В работе
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                В роботі
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'in_work' '✓' %}">✓</a>
+                                <a class="dropdown-item" href="{% url 'in_work' '✕' %}">✕</a>
+                            </div>
+                        </div>
                     </th>
                     <th>
                         Площа
@@ -62,12 +120,35 @@
                     <th>
                         Примітки
                     </th>
+                    <th>
+                        Коли зайшла
+                    </th>
 
+                    <th>
+                        Екстериторіалка
+                    </th>
+                    <th>
+                        Експертиза
+                    </th>
+                    <th>
+                        Виконавець
+                    </th>
+
+                    <th>
+                        Хто добавив
+                    </th>
+
+                    <th>
+                        Хто редагував
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for kadastr_number in kadastr_numbers %}
                     <tr>
+                        <th>
+                            {{ forloop.counter }}
+                        </th>
                         <th>
                             <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
                         </th>
@@ -90,6 +171,9 @@
                         </th>
                         <th>
                             {{ kadastr_number.rayon }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.otg }}
                         </th>
                         <th>
                             {{ kadastr_number.reserv }}
@@ -119,6 +203,25 @@
                             {{ kadastr_number.primitky }}
                         </th>
                         <th>
+                            {{ kadastr_number.zashla }}
+                        </th>
+
+                        <th>
+                            {{ kadastr_number.extorialka }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.expertiza }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.ispolnitel }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.who_added }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.who_edit }}
+                        </th>
+                        <th>
                             <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
                         </th>
 
@@ -128,6 +231,7 @@
 
                 <thead class="thead-dark ">
                 <tr>
+
                     <th>
                         Кадастровый номер
                     </th>
@@ -162,6 +266,7 @@
                         Примітки
                     </th>
 
+
                 </tr>
                 </thead>
                 <tbody>
@@ -169,6 +274,7 @@
                     {% if kadastr_number.reserv == user.orderer.orderer %}
 
                         <tr>
+
                             <th>
                                 <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
                             </th>
@@ -216,6 +322,9 @@
                 <thead class="thead-dark ">
                 <tr>
                     <th>
+                        #
+                    </th>
+                    <th>
                         Кадастровый номер
                     </th>
                     <th>
@@ -248,52 +357,80 @@
                     <th>
                         Примітки
                     </th>
+                    <th>
+                        Коли зайшла
+                    </th>
+
+                    <th>
+                        Екстериторіалка
+                    </th>
+                    <th>
+                        Експертиза
+                    </th>
+                    <th>
+                        Виконавець
+                    </th>
 
                 </tr>
                 </thead>
                 <tbody>
                 {% for kadastr_number in kadastr_numbers %}
-                    {% if kadastr_number.to_razbivka %}
-                        <tr>
-                            <th>
-                                <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
-                            </th>
-                            <th>
-                                {{ kadastr_number.oblast }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.reserv }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.in_work }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.square }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.name_ugid }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.rada }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.city }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.obmegenya }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.rishenya }}
-                            </th>
-                            <th>
-                                {{ kadastr_number.primitky }}
-                            </th>
-                            <th>
-                                <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
-                            </th>
+                    <tr>
+                        <th>
+                            {{ forloop.counter }}
+                        </th>
+                        <th>
+                            <a href="{% url 'people_on_kadastr_numbers' kadastr_number.kadastr_number %}">{{ kadastr_number.kadastr_number }}</a>
+                        </th>
+                        <th>
+                            {{ kadastr_number.oblast }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.reserv }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.in_work }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.square }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.name_ugid }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.rada }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.city }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.obmegenya }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.rishenya }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.primitky }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.zashla }}
+                        </th>
 
-                        </tr>
-                    {% endif %}
+                        <th>
+                            {{ kadastr_number.extorialka }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.expertiza }}
+                        </th>
+                        <th>
+                            {{ kadastr_number.ispolnitel }}
+                        </th>
+                        <th>
+                            <a href="{% url 'edit_kadastr_number' kadastr_number.kadastr_number %}">Редагувати</a>
+                        </th>
+
+                    </tr>
+
                 {% endfor %}
 
             {% endif %}
